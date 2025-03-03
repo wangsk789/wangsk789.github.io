@@ -28,7 +28,7 @@
 
 ## LeanUser 用户管理
 
-![20250303_121535.png](https://gitee.com/wangsk789/images/raw/master/20250303_121535.png)
+![20250303_121535.png](./images/20250303_121535.png)
 
 ## LeanLeaderBoard 排行榜
 
@@ -45,23 +45,23 @@
 3.更新策略，better（提交多次成绩只记录最好的），last（多次记录只记录最后提交的），sum（所有提交的记录相加。）
 
 4.自动重置频率，每个相应的时间，排行榜就重置。可以设为从不重置。
-![20250303_121601.png](https://gitee.com/wangsk789/images/raw/master/20250303_121601.png)
+![20250303_121601.png](./images/20250303_121601.png)
 
 ## LeanFile 文件上传
 
 仅支持Leancloud华北节点，限制10m以下文件。
-![20250303_121617.png](https://gitee.com/wangsk789/images/raw/master/20250303_121617.png)
+![20250303_121617.png](./images/20250303_121617.png)
 
 ## LeanMessage 实时通讯
 
 这个初始化，不能直接在屏幕初始化中进行，需要延时一段时间比如500毫秒。
 
 需要配合LeanUser先注册用户。
-![20250303_121626.png](https://gitee.com/wangsk789/images/raw/master/20250303_121626.png)
+![20250303_121626.png](./images/20250303_121626.png)
 
 ## LeanCaptcha 验证码
 
-![20250303_121641.png](https://gitee.com/wangsk789/images/raw/master/20250303_121641.png)
+![20250303_121641.png](./images/20250303_121641.png)
 
 # 购买链接
 

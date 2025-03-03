@@ -8,10 +8,10 @@
 
 首先你要有自己的服务器，可以把相关文件上传，服务器要支持php。
 
-下载文件[myTinyWebDB.zip](https://gitee.com/wangsk789/images/raw/master/20250303_132410.zip)，解压，上传到你的服务器。
+下载文件[myTinyWebDB.zip](./images/20250303_132410.zip)，解压，上传到你的服务器。
 
 我是在本机测试（win10+wamp64），文件结构如下：
-![20250303_132441.png](https://gitee.com/wangsk789/images/raw/master/20250303_132441.png)
+![20250303_132441.png](./images/20250303_132441.png)
 
 index.php文件内容如下：
 
@@ -77,7 +77,7 @@ database.json文件内容如下(只有一对括号)：
 
 # 逻辑设计
 
-![2023-05-10T04:54:29.png][3]![20250303_132335.png](https://gitee.com/wangsk789/images/raw/master/20250303_132335.png)
+![2023-05-10T04:54:29.png][3]![20250303_132335.png](./images/20250303_132335.png)
 
 这里192.168.0.104是我本机的ip，你要换成你自己的服务器地址。
 

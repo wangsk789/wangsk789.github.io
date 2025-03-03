@@ -50,19 +50,19 @@ v2
 本来有个教程，教大家[如何显示表格](/table)，但是有网友反映还是不够简洁，现在我把这个方法进一步打包成了扩展，真正做到开箱即用。
 
 先上图看看效果如何：
-![20250303_125549.png](https://gitee.com/wangsk789/images/raw/master/20250303_125549.png)
+![20250303_125549.png](./images/20250303_125549.png)
 
 # 相关代码块
 
 ## 初始化
 
-![20250303_125628.png](https://gitee.com/wangsk789/images/raw/master/20250303_125628.png)
+![20250303_125628.png](./images/20250303_125628.png)
 
 指定表格要显示在哪个布局之中（可以是垂直布局或者水平布局均可）
 
 ## 设置数据
 
-![20250303_125657.png](https://gitee.com/wangsk789/images/raw/master/20250303_125657.png)
+![20250303_125657.png](./images/20250303_125657.png)
 
 data需要是一个列表的列表
 
@@ -70,7 +70,7 @@ data需要是一个列表的列表
 
 ## 设置单个样式
 
-![20250303_125731.png](https://gitee.com/wangsk789/images/raw/master/20250303_125731.png)
+![20250303_125731.png](./images/20250303_125731.png)
 
 样式设置完全是css的标准，具体请搜索如何写css的样式。
 
@@ -114,7 +114,7 @@ value 属性值
 
 ## 批量设置样式
 
-![20250303_130043.png](https://gitee.com/wangsk789/images/raw/master/20250303_130043.png)
+![20250303_130043.png](./images/20250303_130043.png)
 
 如果你有很多样式要写，用上面的SetStyle就需要多个，比较麻烦，可以使用这个块，直接把样式表写在文本中。
 
@@ -123,81 +123,81 @@ value 属性值
 ## 清除样式
 
 原来设置的所有数据和样式都被清空。
-![20250303_130222.png](https://gitee.com/wangsk789/images/raw/master/20250303_130222.png)
+![20250303_130222.png](./images/20250303_130222.png)
 
 ## 滚动表格
 
 将表格滑动到某行某列（让该单元格可见）
 
-![2023-05-10T05:33:22.png](https://gitee.com/wangsk789/images/raw/master/20250303_130107.png)
+![2023-05-10T05:33:22.png](./images/20250303_130107.png)
 
 ## 内置常用的样式
 
 返回网页源码
-![20250303_130253.png](https://gitee.com/wangsk789/images/raw/master/20250303_130253.png)
+![20250303_130253.png](./images/20250303_130253.png)
 
 是否包含表头
-![20250303_130325.png](https://gitee.com/wangsk789/images/raw/master/20250303_130325.png)
+![20250303_130325.png](./images/20250303_130325.png)
 
 是否包含表尾
-![20250303_130343.png](https://gitee.com/wangsk789/images/raw/master/20250303_130343.png)
+![20250303_130343.png](./images/20250303_130343.png)
 
 **以下块都可以通过SetStyle块来实现，只是为了方便写成内置块。**
 
 设置单元格内边距
-![20250303_130401.png](https://gitee.com/wangsk789/images/raw/master/20250303_130401.png)
+![20250303_130401.png](./images/20250303_130401.png)
 
 设置表头（第一行）背景色
 
 目前只支持例如red、green这样，或者#abcdef这种16进制，不支持AppInventer中的颜色。（下同）
-![20250303_130454.png](https://gitee.com/wangsk789/images/raw/master/20250303_130454.png)
+![20250303_130454.png](./images/20250303_130454.png)
 
 设置边框颜色
-![20250303_130517.png](https://gitee.com/wangsk789/images/raw/master/20250303_130517.png)
+![20250303_130517.png](./images/20250303_130517.png)
 
 设置边框宽度
-![20250303_130544.png](https://gitee.com/wangsk789/images/raw/master/20250303_130544.png)
+![20250303_130544.png](./images/20250303_130544.png)
 
 设置所有文本字号
-![20250303_130610.png](https://gitee.com/wangsk789/images/raw/master/20250303_130610.png)
+![20250303_130610.png](./images/20250303_130610.png)
 
 ## 表格显示完成事件
 
-![20250303_130636.png](https://gitee.com/wangsk789/images/raw/master/20250303_130636.png)
+![20250303_130636.png](./images/20250303_130636.png)
 
 ## js执行完成事件
 
-![20250303_130648.png](https://gitee.com/wangsk789/images/raw/master/20250303_130648.png)
+![20250303_130648.png](./images/20250303_130648.png)
 
 ## 表格被点击事件
 
 表格被点击时，返回点击位置的行、列、内容
-![20250303_130702.png](https://gitee.com/wangsk789/images/raw/master/20250303_130702.png)
+![20250303_130702.png](./images/20250303_130702.png)
 
 ## 表格滚动事件
 
 表格滚动时（手动或通过代码）引发
-![20250303_130725.png](https://gitee.com/wangsk789/images/raw/master/20250303_130725.png)
+![20250303_130725.png](./images/20250303_130725.png)
 
 # 示例
 
 例子1：基本用法
-![20250303_130748.png](https://gitee.com/wangsk789/images/raw/master/20250303_130748.png)
-![20250303_130804.png](https://gitee.com/wangsk789/images/raw/master/20250303_130804.png)
+![20250303_130748.png](./images/20250303_130748.png)
+![20250303_130804.png](./images/20250303_130804.png)
 
 例子2：高亮当前选中单元格
-![20250303_130817.png](https://gitee.com/wangsk789/images/raw/master/20250303_130817.png)
+![20250303_130817.png](./images/20250303_130817.png)
 
 例子3：固定表格第一行。这样在上下滚动时，表头固定在屏幕上方。
-![20250303_130835.png](https://gitee.com/wangsk789/images/raw/master/20250303_130835.png)
+![20250303_130835.png](./images/20250303_130835.png)
 
-![20250303_131046.png](https://gitee.com/wangsk789/images/raw/master/20250303_131046.png)
+![20250303_131046.png](./images/20250303_131046.png)
 
 例子4：合并单元格
-![20250303_130835.png](https://gitee.com/wangsk789/images/raw/master/20250303_130835.png)
+![20250303_130835.png](./images/20250303_130835.png)
 
 # 下载链接
 
-[cn.kevinkun.TableViewer.v8.aix](https://gitee.com/wangsk789/images/raw/master/20250303_130912.aix)
+[cn.kevinkun.TableViewer.v8.aix](./images/20250303_130912.aix)
 
-[cn.kevinkun.TableViewer.v9.aix](https://gitee.com/wangsk789/images/raw/master/20250303_130930.aix)
+[cn.kevinkun.TableViewer.v9.aix](./images/20250303_130930.aix)

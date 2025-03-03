@@ -11,17 +11,17 @@ Why another extension about Airtable? Because this one is different. This one ca
 1. fix bug of "can not update value with space", now in the formula, use " and " to quote the value with space.
 2. add perperty of FetchIdAndTime. if set to true, in the SelectFinished event you will get 'id' and 'createdTime' for each record.
 
-![20250303_111533.png](https://gitee.com/wangsk789/images/raw/master/20250303_111533.png)
+![20250303_111533.png](./images/20250303_111533.png)
 
 3. add method 'UpdateById' and 'DeleteById' for update or delete one record, which is faster than by filter.
 
-![20250303_111551.png](https://gitee.com/wangsk789/images/raw/master/20250303_111551.png)
+![20250303_111551.png](./images/20250303_111551.png)
 
 # all the blocks
 
 ## Initialize the extension
 
-![20250303_111611.png](https://gitee.com/wangsk789/images/raw/master/20250303_111611.png)
+![20250303_111611.png](./images/20250303_111611.png)
 
 Same like other Airtable component, get your API Key, BaseId, TableName from the airtable website.
 
@@ -30,7 +30,7 @@ Since 01/01/2024, Airtable deprecated ApiKey, and suggest to use token. You can 
 
 ## Select records
 
-![20250303_111625.png](https://gitee.com/wangsk789/images/raw/master/20250303_111625.png)
+![20250303_111625.png](./images/20250303_111625.png)
 
 **fields:** String. or called "column names", Format like "*name,age,phone*". Leave it blank for all fields
 
@@ -48,7 +48,7 @@ Since 01/01/2024, Airtable deprecated ApiKey, and suggest to use token. You can 
 
 ## Insert records
 
-![20250303_111639.png](https://gitee.com/wangsk789/images/raw/master/20250303_111639.png)
+![20250303_111639.png](./images/20250303_111639.png)
 
 **records**:  String. Json format. it's a json array of dictionaries. Format like *[{"name":"Jasmine Lake","age":43,"phone":"513937"}, {"name":"Ava Sharp","age":21,"phone":"293309"}]*
 
@@ -58,7 +58,7 @@ Since 01/01/2024, Airtable deprecated ApiKey, and suggest to use token. You can 
 
 ## Update records
 
-![20250303_111652.png](https://gitee.com/wangsk789/images/raw/master/20250303_111652.png)
+![20250303_111652.png](./images/20250303_111652.png)
 
 **filter**: pls refer to Select part
 **NOTE**: ONLY up to 10 records will be updated. if more than 10 records fit the filter, there will be Error Cccured.
@@ -69,7 +69,7 @@ Since 01/01/2024, Airtable deprecated ApiKey, and suggest to use token. You can 
 
 ## Delete records
 
-![20250303_111703.png](https://gitee.com/wangsk789/images/raw/master/20250303_111703.png)
+![20250303_111703.png](./images/20250303_111703.png)
 
 **filter**: pls refer to Select part
 **NOTE**: ONLY up to 10 records will be deleted. if more than 10 records fit the filter, there will be Error Cccured.
@@ -78,10 +78,10 @@ Since 01/01/2024, Airtable deprecated ApiKey, and suggest to use token. You can 
 
 ## Error Occurred
 
-![20250303_111714.png](https://gitee.com/wangsk789/images/raw/master/20250303_111714.png)
+![20250303_111714.png](./images/20250303_111714.png)
 
 **message**: String. Error reason.
 
 # Download link here
 
-[cn.kevinkun.KevinkunAirtable.aix](https://gitee.com/wangsk789/images/raw/master/20250303_133229.aix)
+[cn.kevinkun.KevinkunAirtable.aix](./images/20250303_133229.aix)

@@ -18,7 +18,7 @@
 10. 其他参数有：owner是注册时的用户名，repo就是仓库名，path就是你要上传的文件名，content就是要上传的文件的base64编码，message就是git中的commit，这里可以随便写。
 11. 在owner、repo、path、content、message中随便写上a/b/c/d/e ，点测试，下面会出现这个：
 
-![20250303_120754.png](https://gitee.com/wangsk789/images/raw/master/20250303_120754.png)
+![20250303_120754.png](./images/20250303_120754.png)
 
 12. 根据这个curl命令，就可以写出我们的http客户端请求了
 
@@ -28,9 +28,9 @@
 
 ### 向服务器发送请求
 
-![20250303_120804.png](https://gitee.com/wangsk789/images/raw/master/20250303_120804.png)
+![20250303_120804.png](./images/20250303_120804.png)
 
-![20250303_120811.png](https://gitee.com/wangsk789/images/raw/master/20250303_120811.png)
+![20250303_120811.png](./images/20250303_120811.png)
 
 1. 使用图像选择器选择文件，取得文件路径名，和文件名。
 
@@ -42,7 +42,7 @@
 
 ### 从服务器返回响应：
 
-![20250303_120830.png](https://gitee.com/wangsk789/images/raw/master/20250303_120830.png)
+![20250303_120830.png](./images/20250303_120830.png)
 
 1. 将响应文件转为字典
 

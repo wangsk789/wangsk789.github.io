@@ -12,7 +12,7 @@ v1 - 20230227
 
 ## 所有属性
 
-![20250303_112510.png](https://gitee.com/wangsk789/images/raw/master/20250303_112510.png)
+![20250303_112510.png](./images/20250303_112510.png)
 
 | 参数                  | 类型        | 意义                                                                                                                                |      |
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- | ---- |
@@ -36,10 +36,10 @@ v1 - 20230227
 将地图载入到垂直（或者水平）布局中。初始化之前，在设计窗口设置好所有初始参数。
 
 导入后效果如图：
-![20250303_112559.png](https://gitee.com/wangsk789/images/raw/master/20250303_112559.png)
+![20250303_112559.png](./images/20250303_112559.png)
 
 在地图被点击时，会触发MapClicked事件。
-![20250303_112616.png](https://gitee.com/wangsk789/images/raw/master/20250303_112616.png)
+![20250303_112616.png](./images/20250303_112616.png)
 
 | 参数       | 类型  | 意义     |
 | -------- | --- | ------ |
@@ -48,7 +48,7 @@ v1 - 20230227
 
 ### 平移地图和缩放地图
 
-![20250303_112633.png](https://gitee.com/wangsk789/images/raw/master/20250303_112633.png)
+![20250303_112633.png](./images/20250303_112633.png)
 
 | 参数     | 类型        | 意义       |
 | ------ | --------- | -------- |
@@ -56,7 +56,7 @@ v1 - 20230227
 | zoom   | 数字 （1-19） | 缩放级别     |
 
 在地图被平移或者缩放时，会触发MapViewChanged事件
-![20250303_112702.png](https://gitee.com/wangsk789/images/raw/master/20250303_112702.png)
+![20250303_112702.png](./images/20250303_112702.png)
 
 | 参数       | 类型  | 意义          |
 | -------- | --- | ----------- |
@@ -67,8 +67,8 @@ v1 - 20230227
 
 ## 图钉按钮
 
-![20250303_112718.png](https://gitee.com/wangsk789/images/raw/master/20250303_112718.png)
-![20250303_112731.png](https://gitee.com/wangsk789/images/raw/master/20250303_112731.png)
+![20250303_112718.png](./images/20250303_112718.png)
+![20250303_112731.png](./images/20250303_112731.png)
 
 | 参数          | 类型  | 意义             |
 | ----------- | --- | -------------- |
@@ -85,7 +85,7 @@ v1 - 20230227
 options都是可选的，甚至可以是空字典。
 
 图钉按钮可能引发被点击事件和被拖动事件
-![20250303_112749.png](https://gitee.com/wangsk789/images/raw/master/20250303_112749.png)
+![20250303_112749.png](./images/20250303_112749.png)
 
 | 参数       | 类型  | 意义             |
 | -------- | --- | -------------- |
@@ -96,9 +96,9 @@ options都是可选的，甚至可以是空字典。
 
 ### 线段
 
-![20250303_112803.png](https://gitee.com/wangsk789/images/raw/master/20250303_112803.png)
+![20250303_112803.png](./images/20250303_112803.png)
 
-![20250303_112828.png](https://gitee.com/wangsk789/images/raw/master/20250303_112828.png)
+![20250303_112828.png](./images/20250303_112828.png)
 
 |                   |     |                         |
 | ----------------- | --- | ----------------------- |
@@ -110,15 +110,15 @@ options都是可选的，甚至可以是空字典。
 | --strokeDashArray | 列表  | 虚实线画法 [实线，虚线，实线，虚线,...] |
 
 线段被点击会引发点击事件
-![20250303_112846.png](https://gitee.com/wangsk789/images/raw/master/20250303_112846.png)
+![20250303_112846.png](./images/20250303_112846.png)
 
 参数意义同图钉按钮。
 
 ### 多边形
 
-![20250303_112900.png](https://gitee.com/wangsk789/images/raw/master/20250303_112900.png)
+![20250303_112900.png](./images/20250303_112900.png)
 
-![20250303_112913.png](https://gitee.com/wangsk789/images/raw/master/20250303_112913.png)
+![20250303_112913.png](./images/20250303_112913.png)
 
 |                   |     |                         |
 | ----------------- | --- | ----------------------- |
@@ -131,15 +131,15 @@ options都是可选的，甚至可以是空字典。
 | --strokeDashArray | 列表  | 虚实线画法 [实线，虚线，实线，虚线,...] |
 
 多边形点击会引发点击事件：
-![20250303_112929.png](https://gitee.com/wangsk789/images/raw/master/20250303_112929.png)
+![20250303_112929.png](./images/20250303_112929.png)
 
 参数意义同线段
 
 ### 规则多边形
 
-![20250303_112948.png](https://gitee.com/wangsk789/images/raw/master/20250303_112948.png)
+![20250303_112948.png](./images/20250303_112948.png)
 
-![20250303_113000.png](https://gitee.com/wangsk789/images/raw/master/20250303_113000.png)
+![20250303_113000.png](./images/20250303_113000.png)
 
 |         |     |             |
 | ------- | --- | ----------- |
@@ -155,15 +155,15 @@ options都是可选的，甚至可以是空字典。
 
 ### 删除形状
 
-![20250303_113016.png](https://gitee.com/wangsk789/images/raw/master/20250303_113016.png)
+![20250303_113016.png](./images/20250303_113016.png)
 
 根据id删除图钉、线段、多边形，或者全部删除。
 
 ### 信息窗
 
-![20250303_113258.png](https://gitee.com/wangsk789/images/raw/master/20250303_113258.png)
+![20250303_113258.png](./images/20250303_113258.png)
 
-![20250303_113314.png](https://gitee.com/wangsk789/images/raw/master/20250303_113314.png)
+![20250303_113314.png](./images/20250303_113314.png)
 
 ShowInfobox: 显示信息窗口
 
@@ -177,13 +177,13 @@ HideInfobox: 隐藏信息窗口
 | actions     | 列表  | 按钮文本列表。可以是空列表       |
 
 点击按钮文本会引发点击事件：
-![20250303_113417.png](https://gitee.com/wangsk789/images/raw/master/20250303_113417.png)
+![20250303_113417.png](./images/20250303_113417.png)
 
 ### 路线规划
 
-![20250303_113435.png](https://gitee.com/wangsk789/images/raw/master/20250303_113435.png)
+![20250303_113435.png](./images/20250303_113435.png)
 
-![20250303_113508.png](https://gitee.com/wangsk789/images/raw/master/20250303_113508.png)
+![20250303_113508.png](./images/20250303_113508.png)
 
 CalculateRoute: 计算路线。计算成功会在地图上绘制路线，并引发RouteUpdated事件。
 
@@ -199,16 +199,16 @@ RemoveRoute：从地图上清除路线
 
 ### 位置和坐标转换
 
-![20250303_113530.png](https://gitee.com/wangsk789/images/raw/master/20250303_113530.png)
+![20250303_113530.png](./images/20250303_113530.png)
 
 GetAddressFrom: 坐标 [纬度，经度] 转为地址。
 
 GetLocationsFrom: 地址转为坐标。（可能会返回多个坐标）
-![20250303_113554.png](https://gitee.com/wangsk789/images/raw/master/20250303_113554.png)
+![20250303_113554.png](./images/20250303_113554.png)
 
 ### 计算距离
 
-![20250303_113606.png](https://gitee.com/wangsk789/images/raw/master/20250303_113606.png)
+![20250303_113606.png](./images/20250303_113606.png)
 
 计算两点之间的距离。
 
@@ -224,4 +224,4 @@ GetLocationsFrom: 地址转为坐标。（可能会返回多个坐标）
 
 ## 下载连接：
 
-[cn.kevinkun.BingMap-v1.aix](https://gitee.com/wangsk789/images/raw/master/20250303_133649.aix)
+[cn.kevinkun.BingMap-v1.aix](./images/20250303_133649.aix)

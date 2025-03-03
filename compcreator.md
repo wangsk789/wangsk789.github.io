@@ -10,7 +10,7 @@ This extension is inspired on the fabulous work of Yusuf Cihan: [GitHub - ysfch
 
 ## 创建组件
 
-![20250303_115251.png](https://gitee.com/wangsk789/images/raw/master/20250303_115251.png)
+![20250303_115251.png](./images/20250303_115251.png)
 
 component：是要创建的组件的类型（文本字串），这里推荐使用选项下拉框输入.
 
@@ -23,21 +23,21 @@ But you can use the ListComponents function of this extension.
 
 ## 组件列表
 
-![20250303_115300.png](https://gitee.com/wangsk789/images/raw/master/20250303_115300.png)
+![20250303_115300.png](./images/20250303_115300.png)
 
 可以返回同类型的组件列表  
 recursive: boolean. If true, it will return all components with same type. If false, it will return only the direct children.  
 
 ## 移除组件
 
-![20250303_115308.png](https://gitee.com/wangsk789/images/raw/master/20250303_115308.png)
+![20250303_115308.png](./images/20250303_115308.png)
 
 component：要删除的组件，而不是他的类型。如果他是容器类，他的所有子组件也会被移除。
 
 ## 设置属性
 
 这个块的大部分功能可以使用内置的任意组件块来实现。  
-![20250303_115316.png](https://gitee.com/wangsk789/images/raw/master/20250303_115316.png)
+![20250303_115316.png](./images/20250303_115316.png)
 
 component：要设置属性的组件
 
@@ -51,13 +51,13 @@ value：新的属性值
 
 ## 获取属性
 
-![20250303_115323.png](https://gitee.com/wangsk789/images/raw/master/20250303_115323.png)
+![20250303_115323.png](./images/20250303_115323.png)
 
 这个块的大部分功能可以使用内置的任意组件块来实现。
 
 ## 获取子组件列表和父组件
 
-![20250303_115332.png](https://gitee.com/wangsk789/images/raw/master/20250303_115332.png)
+![20250303_115332.png](./images/20250303_115332.png)
 
 ~~只适用于获取动态生成的子组件列表或他的父组件~~
 
@@ -67,7 +67,7 @@ value：新的属性值
 
 ## 从模板创建
 
-![20250303_115346.png](https://gitee.com/wangsk789/images/raw/master/20250303_115346.png)
+![20250303_115346.png](./images/20250303_115346.png)
 
 返回值是创建的最外层的容器组件
 
@@ -79,7 +79,7 @@ values: 列表。传入组件模板的值。
 
 可以根据以下格式手动编写，或者在MIT服务器上的设计界面手动添加需要的界面（一条记录），根据需要设置相应的组件属性。选中最外层组件，键盘上按下Ctrl + C，然后在任何文本编辑器里面按键盘上的Ctrl+V，就可以得到模板了  
 
-![20250303_115406.png](https://gitee.com/wangsk789/images/raw/master/20250303_115406.png)
+![20250303_115406.png](./images/20250303_115406.png)
 
 ```json
 {
@@ -137,24 +137,24 @@ values: 列表。传入组件模板的值。
 
 然后这样使用模板,新生成的按钮就可以有新的文本和颜色了：  
 
-![20250303_115422.png](https://gitee.com/wangsk789/images/raw/master/20250303_115422.png)
+![20250303_115422.png](./images/20250303_115422.png)
 
 ## 添加删除点击事件
 
-![20250303_115429.png](https://gitee.com/wangsk789/images/raw/master/20250303_115429.png)
+![20250303_115429.png](./images/20250303_115429.png)
 
 为新建组件添加或取消点击事件。
 
 listener: 过程名。需要手动创建一个过程名，包含一个参数，该参数即为被点击的组件。
 
-![20250303_115449.png](https://gitee.com/wangsk789/images/raw/master/20250303_115449.png)
+![20250303_115449.png](./images/20250303_115449.png)
 
 # 下载地址：
 
 扩展aix：  
-[cn.kevinkun.CompCreator-V8.9.aix](https://gitee.com/wangsk789/images/raw/master/20250303_115647.aix)
+[cn.kevinkun.CompCreator-V8.9.aix](./images/20250303_115647.aix)
 
 示例aia:  
-[compcreator-listview-by-template.aia](https://gitee.com/wangsk789/images/raw/master/20250303_115726.aia)  
+[compcreator-listview-by-template.aia](./images/20250303_115726.aia)  
 
 更多示例及用法，可以[参考这里](https://community.appinventor.mit.edu/t/free-compcreator-create-component-dynamically/49724)

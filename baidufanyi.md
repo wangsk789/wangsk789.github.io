@@ -6,7 +6,7 @@
 
 ## 方法
 
-![20250303_112327.png](https://gitee.com/wangsk789/images/raw/master/20250303_112327.png)
+![20250303_112327.png](./images/20250303_112327.png)
 
 * 翻译内容：待翻译的文字，语言种类自动识别。
 - 翻译语言：需要翻译到的语言，可以是zh,en,jp,fra,it等等，具体参看[这里](https://api.fanyi.baidu.com/product/113)
@@ -16,11 +16,11 @@
 ## 属性
 
 * 属性描述：设置appid
-  ![20250303_112338.png](https://gitee.com/wangsk789/images/raw/master/20250303_112338.png)
+  ![20250303_112338.png](./images/20250303_112338.png)
 
 * 属性描述：设置appkey
-  ![20250303_112347.png](https://gitee.com/wangsk789/images/raw/master/20250303_112347.png)
+  ![20250303_112347.png](./images/20250303_112347.png)
 
 ## 下载
 
-[cn.kevinkun.KevinkunBaiduFanyi.aix](https://gitee.com/wangsk789/images/raw/master/20250303_133451.aix)
+[cn.kevinkun.KevinkunBaiduFanyi.aix](./images/20250303_133451.aix)

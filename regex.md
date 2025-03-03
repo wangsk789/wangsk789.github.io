@@ -6,13 +6,13 @@
 
 # 方法 All Methods
 
-![2023-05-10T05:01:22.png][1]![20250303_124016.png](https://gitee.com/wangsk789/images/raw/master/20250303_124016.png)
+![2023-05-10T05:01:22.png][1]![20250303_124016.png](./images/20250303_124016.png)
 
 GetMatches方法可以返回符合条件的字符串列表
 
 SplitWith方法可以使用规则表达式对字符串进行分割，并返回列表
 
-![20250303_124025.png](https://gitee.com/wangsk789/images/raw/master/20250303_124025.png)
+![20250303_124025.png](./images/20250303_124025.png)
 
 GetMatchesWithPosition方法
 
@@ -21,13 +21,13 @@ GetMatchesWithGroup方法
 GetMatchesWithGroupAndPosition方法
 
 示例文件解释了他们的作用.
-![20250303_124035.png](https://gitee.com/wangsk789/images/raw/master/20250303_124035.png)
+![20250303_124035.png](./images/20250303_124035.png)
 
 ReplaceFirst方法和ReplaceAll方法可以返回替换第一个或所有符合条件的子字符串后的新字符串
-![20250303_124042.png](https://gitee.com/wangsk789/images/raw/master/20250303_124042.png)
+![20250303_124042.png](./images/20250303_124042.png)
 
 IndexOf方法可以返回符合条件的第一个字串的位置
-![20250303_124050.png](https://gitee.com/wangsk789/images/raw/master/20250303_124050.png)
+![20250303_124050.png](./images/20250303_124050.png)
 
 IsMatch方法可以判断字符串是否符合规则表达式，返回真或假
 
@@ -41,4 +41,4 @@ IsEmail和IsStrongPassword可以用在用户注册、登录等情况
 
 ## 下载地址 Download Links:
 
-[cn.kevinkun.KevinkunRegEx-v3.aix](https://gitee.com/wangsk789/images/raw/master/20250303_124122.aix)
+[cn.kevinkun.KevinkunRegEx-v3.aix](./images/20250303_124122.aix)

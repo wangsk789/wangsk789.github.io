@@ -40,10 +40,10 @@ MongoDB 将数据存储为一个文档，数据结构由键值(key=>value)对组
 
 ## 使用Web组件操作数据
 
-![20250303_122428.png](https://gitee.com/wangsk789/images/raw/master/20250303_122428.png)
-![20250303_122440.png](https://gitee.com/wangsk789/images/raw/master/20250303_122440.png)
-![20250303_122453.png](https://gitee.com/wangsk789/images/raw/master/20250303_122453.png)
-![20250303_122504.png](https://gitee.com/wangsk789/images/raw/master/20250303_122504.png)
+![20250303_122428.png](./images/20250303_122428.png)
+![20250303_122440.png](./images/20250303_122440.png)
+![20250303_122453.png](./images/20250303_122453.png)
+![20250303_122504.png](./images/20250303_122504.png)
 
 ## 请求方式：
 

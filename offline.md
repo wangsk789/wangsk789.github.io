@@ -52,7 +52,7 @@ https://github.com/mit-cml/closure-library.git
 这两个是编译代码用到的子模块，也需要下载到本地。
 
 修改gitee上appinventor-sources仓库的.gitmodules文件内的url为相应的gitee的网址：
-![20250303_122802.png](https://gitee.com/wangsk789/images/raw/master/20250303_122802.png)
+![20250303_122802.png](./images/20250303_122802.png)
 
 资源管理器 打开D盘，空白地方右键，运行 git bush here
 

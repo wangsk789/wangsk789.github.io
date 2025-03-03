@@ -10,7 +10,7 @@ To view the pdf without opening 3th party app
 
 LoadPDF function will fire PdfLoaded event if success, or OnError event if failed.
 
-![20250303_122850.png](https://gitee.com/wangsk789/images/raw/master/20250303_122850.png)
+![20250303_122850.png](./images/20250303_122850.png)
 | parameter | type | description |
 | -- | -- | -- |
 | layou t| Arrangement | where the pdf file to show |
@@ -20,7 +20,7 @@ LoadPDF function will fire PdfLoaded event if success, or OnError event if faile
 ## Preview
 
 This needs to be called after PdfLoaded event. You can preview all pages or only partially.
-![20250303_123003.png](https://gitee.com/wangsk789/images/raw/master/20250303_123003.png)
+![20250303_123003.png](./images/20250303_123003.png)
 
 | parameter | type   | description                                                                         |
 | --------- | ------ | ----------------------------------------------------------------------------------- |
@@ -29,7 +29,7 @@ This needs to be called after PdfLoaded event. You can preview all pages or only
 ## Goto
 
 scroll to page you want to view.
-![20250303_123012.png](https://gitee.com/wangsk789/images/raw/master/20250303_123012.png)
+![20250303_123012.png](./images/20250303_123012.png)
 | parameter | type | description |
 | --- | --- | --- |
 | page | Number | page you want to show |
@@ -37,21 +37,21 @@ scroll to page you want to view.
 ## Scrolled
 
 fired when the view is scrolled.
-![20250303_123021.png](https://gitee.com/wangsk789/images/raw/master/20250303_123021.png)
+![20250303_123021.png](./images/20250303_123021.png)
 | parameter|type|description|
 | -- | -- | -- |
 |pageInView|Number|page now in view|
 
 ## OnError
 
-![20250303_123156.png](https://gitee.com/wangsk789/images/raw/master/20250303_123156.png)
+![20250303_123156.png](./images/20250303_123156.png)
 |parameter|type|description|
 |--|--|--|
 |error|String|reason of error|
 
 # SIMPLE DEMO
 
-![20250303_123211.png](https://gitee.com/wangsk789/images/raw/master/20250303_123211.png)
+![20250303_123211.png](./images/20250303_123211.png)
 
 # FAQ
 
@@ -61,4 +61,4 @@ You need to download the pdf to local (like ASD) first.
 
 # DOWNLOAD LINK
 
-[cn.kevinkun.PdfViewer.aix](https://gitee.com/wangsk789/images/raw/master/20250303_123238.aix)
+[cn.kevinkun.PdfViewer.aix](./images/20250303_123238.aix)

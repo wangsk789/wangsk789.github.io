@@ -106,6 +106,6 @@ else{
 
 ## 使用Web客户端与服务器交互
 
-![20250303_122711.png](https://gitee.com/wangsk789/images/raw/master/20250303_122711.png)
+![20250303_122711.png](./images/20250303_122711.png)
 
   [1]: /usr/uploads/2023/05/2116027381.png

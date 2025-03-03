@@ -12,26 +12,26 @@
 
 ## 读取工作表
 
-![20250303_120538.png](https://gitee.com/wangsk789/images/raw/master/20250303_120538.png)
+![20250303_120538.png](./images/20250303_120538.png)
 
 ## 读取行
 
-![20250303_120544.png](https://gitee.com/wangsk789/images/raw/master/20250303_120544.png)
+![20250303_120544.png](./images/20250303_120544.png)
 
 ## 读取列
 
-![20250303_120555.png](https://gitee.com/wangsk789/images/raw/master/20250303_120555.png)
+![20250303_120555.png](./images/20250303_120555.png)
 
 ## 读取单元格
 
-![20250303_120602.png](https://gitee.com/wangsk789/images/raw/master/20250303_120602.png)
+![20250303_120602.png](./images/20250303_120602.png)
 
 ## 
 
 ## 写入单元格
 
 不支持写入素材
-![20250303_120611.png](https://gitee.com/wangsk789/images/raw/master/20250303_120611.png)
+![20250303_120611.png](./images/20250303_120611.png)
 
 # 关于文件名路径的简写方法
 
@@ -40,4 +40,4 @@
 
 # 下载链接
 
-[cn.kevinkun.ExcelUtil.aix](https://gitee.com/wangsk789/images/raw/master/20250303_120638.aix)
+[cn.kevinkun.ExcelUtil.aix](./images/20250303_120638.aix)

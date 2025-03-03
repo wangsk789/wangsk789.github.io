@@ -33,12 +33,12 @@
    ```
 
 3. 将以上两个文件和你的xls文件上传到素材。要读取的文件不是必须是素材，可以放在ASD中或者其他有读取权限的地方都可以。本示例是读取ASD.
-   ![20250303_111124.png](https://gitee.com/wangsk789/images/raw/master/20250303_111124.png)
+   ![20250303_111124.png](./images/20250303_111124.png)
 
 4. 我们还需要一个[Base64扩展](https://community.appinventor.mit.edu/t/save-image-sound-clip-video-canvas-in-tinydb-extension-base-64-download-file-from-the-web-and-convert-it-to-string/40425)，可以把xls文件转为base64.
 
 5. 相关代码
-   ![20250303_111139.png](https://gitee.com/wangsk789/images/raw/master/20250303_111139.png)
+   ![20250303_111139.png](./images/20250303_111139.png)
 - 首先让网页浏览器访问转换的网页
 
 - FileToStringDirect方法可以把文件转为base64文本
@@ -47,8 +47,8 @@
 
 - 在网页交换字符串改变事件接收读取的xls内容，应该是个csv表
 6. 运行结果如图：
-   ![20250303_111153.png](https://gitee.com/wangsk789/images/raw/master/20250303_111153.png)
+   ![20250303_111153.png](./images/20250303_111153.png)
 
 ## 示例文件
 
-[demo.aia](https://gitee.com/wangsk789/images/raw/master/20250303_120437.aia)
+[demo.aia](./images/20250303_120437.aia)

@@ -18,7 +18,7 @@ A tween (from [*in-between*](http://en.wikipedia.org/wiki/Inbetweening)) is a co
 
 ## Add a animator to a set.
 
-![20250303_132551.png](https://gitee.com/wangsk789/images/raw/master/20250303_132551.png)
+![20250303_132551.png](./images/20250303_132551.png)
 
 this can be used to add animator on same component with defferent properties, or same properties of defferent componnet, event can use to tween color(backgroundColor, textColor)
 |param | type | description|
@@ -30,23 +30,23 @@ this can be used to add animator on same component with defferent properties, or
 ## Start/Pause/Cancel/Resume/Reverse set
 
 开始、取消、暂停、恢复、反转动画。
-![20250303_132601.png](https://gitee.com/wangsk789/images/raw/master/20250303_132601.png)
+![20250303_132601.png](./images/20250303_132601.png)
 
 ## Animation End event
 
 动画完成事件
-![20250303_132607.png](https://gitee.com/wangsk789/images/raw/master/20250303_132607.png)
+![20250303_132607.png](./images/20250303_132607.png)
 
 ## ScreenDensity
 
 屏幕分辨率
-![20250303_132612.png](https://gitee.com/wangsk789/images/raw/master/20250303_132612.png)
+![20250303_132612.png](./images/20250303_132612.png)
 useful when you tween the x/y/translationX/translationY
 在tween位置或者大小时有用。
 
 ## Properties
 
-![20250303_132621.png](https://gitee.com/wangsk789/images/raw/master/20250303_132621.png)
+![20250303_132621.png](./images/20250303_132621.png)
 
 | name         | type    | desc                                                                                                                                                                          |
 | ------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,11 +61,11 @@ useful when you tween the x/y/translationX/translationY
 
 下载链接
 AIX:
-[cn.kevinkun.Tween.v4.aix](https://gitee.com/wangsk789/images/raw/master/20250303_132642.aix)
+[cn.kevinkun.Tween.v4.aix](./images/20250303_132642.aix)
 
 # Demo
 
 示例 侧边栏动画
-[sidebar.aia](https://gitee.com/wangsk789/images/raw/master/20250303_132702.aia)
+[sidebar.aia](./images/20250303_132702.aia)
 其中使用了层叠布局扩展，thanks to @VSATISH13。
 in this demo, [extension Overlap by VSATISH13](27540) used .
