@@ -1,5 +1,5 @@
+title: 浮云小站
+description: App Inventor 2相关的扩展、教程、代码等.
 remote_theme: pages-themes/hacker@v0.2.0
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
-title: Kevinkun's Homepage
-description: Extensions, tutorials about App Inventor 2.
+- jekyll-remote-theme 
