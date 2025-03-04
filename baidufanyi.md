@@ -6,21 +6,31 @@
 
 ## 方法
 
-![20250303_112327.png](./images/20250303_112327.png)
+![](./images/2025-03-04-15-52-42-image.png)
 
-* 翻译内容：待翻译的文字，语言种类自动识别。
-- 翻译语言：需要翻译到的语言，可以是zh,en,jp,fra,it等等，具体参看[这里](https://api.fanyi.baidu.com/product/113)
-- 成功回调：回调函数需要1个参数 translation文本
-- 失败回调：回调函数需要1个参数reason文本型
+textToTranslate：待翻译的文字，语言种类自动识别。
+
+languageToTranslateTo：需要翻译到的语言，可以是zh,en,jp,fra,it等等，具体参看[这里](https://api.fanyi.baidu.com/product/113)
+
+
+
+## 事件
+
+![](./images/2025-03-04-15-53-14-image.png)
+
+- 成功事件：返回1个参数 translation文本
+- 失败事件：返回1个参数error文本型
 
 ## 属性
 
 * 属性描述：设置appid
-  ![20250303_112338.png](./images/20250303_112338.png)
+  
+  ![](./images/2025-03-04-15-54-57-image.png)
 
 * 属性描述：设置appkey
-  ![20250303_112347.png](./images/20250303_112347.png)
+  
+  ![](./images/2025-03-04-15-55-13-image.png)
 
 ## 下载
 
-[cn.kevinkun.KevinkunBaiduFanyi.aix](./images/20250303_133451.aix)
+[cn.kevinkun.KevinkunBaiduFanyi.aix](./images/cn.kevinkun.baidufanyi.aix)
