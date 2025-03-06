@@ -1,4 +1,4 @@
 title: 浮云小站
 description: App Inventor 2相关的扩展、教程、代码等.
-remote_theme: jekyll-text-theme
-
+remote-theme: jekyll-text-theme
+text_skin: dark # "default" (default), "dark", "forest", "ocean", "chocolate", "orange"
