@@ -1,6 +1,6 @@
 # 补间动画扩展
 
-补间动画是一个概念，允许你以平滑的方式更改对象的属性。你只需告诉它哪些属性要更改，当补间结束运行时它们应该具有哪些最终值，以及这需要多长时间，补间引擎将负责计算从起始点到结束点的值。
+补间动画允许你以平滑的方式更改对象的属性。你只需告诉它哪些属性要更改，当补间结束运行时它们应该具有哪些最终值，以及需要的时长，补间引擎将负责计算从起始点到结束点的值。
 
 <!--more-->
 
@@ -30,17 +30,21 @@ this can be used to add animator on same component with defferent properties, or
 ## Start/Pause/Cancel/Resume/Reverse set
 
 开始、取消、暂停、恢复、反转动画。
+
 ![20250303_132601.png](./images/20250303_132601.png)
 
 ## Animation End event
 
 动画完成事件
+
 ![20250303_132607.png](./images/20250303_132607.png)
 
 ## ScreenDensity
 
 屏幕分辨率
+
 ![20250303_132612.png](./images/20250303_132612.png)
+
 useful when you tween the x/y/translationX/translationY
 在tween位置或者大小时有用。
 
@@ -58,7 +62,6 @@ useful when you tween the x/y/translationX/translationY
 | StartDelay   | int     | how many millis to delay the animation<br>动画延迟多久后才开始。单位毫秒                                                                                                                     |
 
 # DOWNLOAD LINK:
-
 下载链接
 AIX:
 [cn.kevinkun.Tween.v4.aix](./images/20250303_132642.aix)
