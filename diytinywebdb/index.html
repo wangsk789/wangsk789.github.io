@@ -125,20 +125,39 @@
             appKey: '3E9izfNLmqlvNDXjgCOpfBoo',
 			serverURLs: "https://valine.kevinkun.cn",
 			meta: ['nick','mail'],
-			requiredFields: ['nick']
+			requiredFields: ['nick'],
+			lang:'en'
         })
 		document.querySelector('#vcomments').addEventListener('click',e=>{
 
 			if(e.target == document.querySelector('.vsubmit.vbtn')){
 				let nick = document.querySelector('.vinput.vnick').value || '';
-				
+				let mail = document.querySelector('.vinput.vmail').value || '';
 				let content = document.querySelector('.vinput.veditor').value || '';
 				if(nick && content ){
-					console.log(`用户${nick},在${window.location.pathname}提交了评论:${content}`);
+					let realcontent = `用户: ${nick}<br>时间：${now()}<br>网址：${window.location.href}<br>评论：${content}`;
+					
+					let url = `http://hb5.api.yesapi.cn/?s=App.Email.Send&return_data=0&address=wangsk789@qq.com&title=您有新评论&content=${realcontent}&app_key=8EB2FBCBCC3A26C0BE805698DB59A5A1`;
+					
+					fetch(url);
 				}
 				
 			}
 		})
+		function now(){
+				var current = new Date();
+				var y = current.getFullYear();
+				var m = current.getMonth() + 1;
+				m = m < 10 ? ('0'+m) : m;
+				var d = current.getDate();
+				var h = current.getHours();
+				var mm = current.getMinutes();
+				var s = current.getSeconds();
+				s = s < 10 ? ('0'+s) : s;
+				var now = y +'-'+ m +'-'+ d +' '+ h +':'+ mm +':'+ s + '';
+			return now;
+		}
+
     </script>
     </main>
 
