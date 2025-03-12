@@ -86,17 +86,18 @@
             el: '#vcomments',
             appId: 'Yn5DoP1nXtw6qIS2KTASpb2W-MdYXbMMI',
             appKey: '3E9izfNLmqlvNDXjgCOpfBoo',
-			serverURLs: "https://yn5dop1n.api.lncldglobal.com",
+			serverURLs: "https://valine.kevinkun.cn",
 			meta: ['nick','mail'],
-			requiredFields: ['nick','mail']
+			requiredFields: ['nick']
         })
 		document.querySelector('#vcomments').addEventListener('click',e=>{
-			if(e.target == document.querySelector('#vcomments .vsubmit')){
-				let nick = document.querySelector('#vcomments>.vpanel .vinput.vnick').value || 'Anonymous';
-				let mail = document.querySelector('#vcomments>.vpanel .vinput.vmail').value || '';
-				let content = document.querySelector('#vcomments>.vpanel #veditor').value || '';
-				if(content){
-					console.log(`用户${nick},邮箱${mail},提交了评论:${content}`);
+
+			if(e.target == document.querySelector('.vsubmit.vbtn')){
+				let nick = document.querySelector('.vinput.vnick').value || '';
+				
+				let content = document.querySelector('.vinput.veditor').value || '';
+				if(nick && content ){
+					console.log(`用户${nick},在${window.location.pathname}提交了评论:${content}`);
 				}
 				
 			}
