@@ -225,5 +225,12 @@
       <guid>/snake/</guid>
       <description>&lt;p&gt;贪吃蛇是一款非常经典的手机游戏，相信每个人都玩过这个游戏。下面我们利用APP INVENTOR 2来制作一款自己的贪吃蛇。&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>Search Result</title>
+      <link>/search/search/</link>
+      <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+      <guid>/search/search/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

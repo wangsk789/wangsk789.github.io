@@ -43,7 +43,19 @@
         
       </ul>
     </nav>
-
+	
+	<div >
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+        </div>
+		<script>
+		var input = document.getElementById("search-query");
+		input.onkeydown=function(e){
+				if(e.keyCode == 13){
+					location.href = "/search/?s="+input.value;
+				}
+			};
+		</script>
+		
     <p>Copyright (c) 2025, Kevinkun</p>
   </div>
 </aside>
