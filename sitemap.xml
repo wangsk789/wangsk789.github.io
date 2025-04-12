@@ -8,6 +8,18 @@
     <loc>/tableviewer/</loc>
     <lastmod>2022-11-20T09:03:20-08:00</lastmod>
   </url><url>
+    <loc>/airscript/</loc>
+    <lastmod>2025-04-12T15:03:20+08:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2025-04-12T15:03:20+08:00</lastmod>
+  </url><url>
+    <loc>/tags/tutorial/</loc>
+    <lastmod>2025-04-12T15:03:20+08:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2025-04-12T15:03:20+08:00</lastmod>
+  </url><url>
     <loc>/debug/</loc>
     <lastmod>2022-11-20T09:03:20-08:00</lastmod>
   </url><url>
@@ -65,9 +77,6 @@
     <loc>/appmarket/</loc>
     <lastmod>2022-11-20T09:03:20-08:00</lastmod>
   </url><url>
-    <loc>/</loc>
-    <lastmod>2022-11-20T09:03:20-08:00</lastmod>
-  </url><url>
     <loc>/joystick/</loc>
     <lastmod>2022-11-20T09:03:20-08:00</lastmod>
   </url><url>
@@ -105,7 +114,5 @@
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-  </url><url>
-    <loc>/tags/</loc>
   </url>
 </urlset>

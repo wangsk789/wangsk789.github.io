@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AirScript与金山文档 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>AirScript与金山文档</h1>
+  <time datetime=2025-04-12T15:03:20&#43;0800 class="post-date">2025-04-12</time>
+  <p>AirScript相当于一段脚本，嵌入在金山文档组件中，运行在云端，使用JavaScript语言编写，提供对表格数据的增删改查等功能。正是因为他运行在云端，我们可以使用他来实现跨端共享数据</p>
+<h1 id="创建airscript">创建AirScript</h1>
+<h2 id="登录金山文档">登录金山文档</h2>
+<p>打开金山文档网页 <a href="https://kdocs.cn">https://kdocs.cn</a>, 点击免费使用。按要求注册并登录。</p>
+<p><img src="./assets/ff1a3a75f4b8e90ef582829c345d940aeefce94f.png" alt="20250112_151100_01.png"></p>
+<h2 id="新建表格">新建表格</h2>
+<p><img src="./assets/f64f18e20823a6023fb8aca407dd422fd37892ab.png" alt="20250112_151100_02.png"></p>
+<h2 id="打开脚本编辑器">打开脚本编辑器</h2>
+<p>选择菜单 效率-高级开发-AirScript脚本编辑器</p>
+<p><img src="./assets/3ce74d89fbf4131f3a4a6f4a790a265aec321a06.png" alt="20250112_151100_03.png"></p>
+<h2 id="新建脚本">新建脚本</h2>
+<p>这里有&quot;文档共享脚本&quot;和&quot;我的脚本&quot;两个类型，我们选择&quot;文档共享脚本&quot;，脚本API有两种，我们这里选择1.0。（我自己的测试2.0有些bug，官方正在修复中）</p>
+<p><img src="./assets/c7b52ea573eb47cc1373ecdc79c1eb6875d54713.png" alt="20250112_151100_04.png"></p>
+<h2 id="编辑脚本">编辑脚本</h2>
+<p>我们先在代码编辑区简单的输入个return &ldquo;hello world&rdquo;</p>
+<p><img src="./assets/e75d4adb4e0001e6c04a4ecbb5ca25e3d75ea47a.png" alt="20250112_151100_05.png"></p>
+<h2 id="复制脚本链接">复制脚本链接</h2>
+<p>点开脚本名称右边的省略号，选择“复制脚本webhook”。 这个webhook就是脚本的网址，我们后期就是要使用Web客户端访问这个网址</p>
+<p><img src="./assets/b4edb500aa6ca1bc53205031bd0e25dec9b5c38c.png" alt="20250112_151100_06.png"></p>
+<h1 id="创建脚本令牌">创建脚本令牌</h1>
+<p>脚本令牌相当于访问上面这个webhook的口令，需要妥善保存，不可外泄。
+点击盾牌按钮，开始创建脚本令牌。</p>
+<p><img src="./assets/f0fb30d2ba5bb89244d18a43079583b9a7a6c867.png" alt="20250112_151100_07.png"></p>
+<p>复制脚本令牌并妥善保存</p>
+<p><img src="./assets/729e522ce01a97f724bc81d639d4d44c94b4fd44.png" alt="20250112_151100_08.png"></p>
+<p>脚本令牌若忘记，只能删除令牌重新生成。
+令牌有180天有效期，到期可以延期。</p>
+<p><img src="./assets/978173a9c49900cb9afa5cdd476bd3338532c02e.png" alt="20250112_151100_09.png"></p>
+<h1 id="建立web客户端与金山文档的连接">建立Web客户端与金山文档的连接</h1>
+<h2 id="界面设计">界面设计</h2>
+<p>在App Inventor的设计界面中，添加一个按钮，一个标签，一个Web客户端</p>
+<h2 id="代码设计">代码设计</h2>
+<h3 id="创建两个变量">创建两个变量</h3>
+<p>记录上面生成的webhook网址和脚本令牌</p>
+<p><img src="./assets/3ce5198190229297ead6a64722efd6751a8e9206.png" alt="20250112_151100_10.png"></p>
+<h3 id="自定义发送post请求的过程">自定义发送post请求的过程</h3>
+<p>设置Web的网址为webhook。
+在请求头中设置脚本令牌和请求文本的格式为json。
+post的文本有一定的格式，必须是{&ldquo;Context&rdquo;:{&ldquo;argv&rdquo;:payload}}格式的json文本。其中的payload就是我们要发送的参数，我们需要把参数也写成json格式。
+(所有图片都可以双击放大查看)</p>
+<p><img src="./assets/662dc067053ee903b95e614e268f427dda49d863.png" alt="20250112_151100_11.png"></p>
+<h3 id="在webgottext事件中接收服务器返回的数据">在Web.GotText事件中接收服务器返回的数据</h3>
+<p>现在我们发送一个空文本，看看服务器的返回文本，其中的result正是我们在脚本中写的hello world，说明我们的App Inventer与金山文档交互成功。返回文本中包含多个字段，其中的result和error是我们比较关注的，可以使用字典提取这两个键值。</p>
+<p><img src="./assets/7f305f74b3d88dda38a46e7dd3abdbc46ccfd63f.png" alt="20250112_151100_12.png"></p>
+<p><img src="./assets/0c08106286e09934bbd645beaf8d05a016797083.png" alt="20250112_151100_13.png"></p>
+<h1 id="使用airscript操作金山云文档">使用AirScript操作金山云文档</h1>
+<h2 id="添加行">添加行</h2>
+<p><img src="./assets/f3483b45ffa9e1ffdccf7d31142c4a0b4520ea91.png" alt="20250112_151100_14.png"></p>
+<p>我们向AirScript发送两个字段，action和data。
+我们可以把多个操作命令写在一个AirScript脚本文件中，为了区分各个命令，我们使用action来指定当前的操作。
+data就是我们要添加的记录，为一维列表。</p>
+<p>例如，我们要操作一个用户名和密码的表格。</p>
+<p><img src="./assets/c944a7c54c9ef3c4da912ce6fb7beb7c67f3f55b.png" alt="20250112_151100_15.png"></p>
+<p>我们要添加一条记录[&ldquo;wang&rdquo;,&ldquo;999&rdquo;]:</p>
+<p><img src="./assets/17d9af3ccd8f0889beb3b02c0ef67fab193c9982.png" alt="20250112_151100_16.png"></p>
+<p>为了接收该条记录，在脚本编辑器中写入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">action</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">action</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sheetName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">sheetname</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;Sheet1&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sh</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Application</span>.<span style="color:#a6e22e">Sheets</span>(<span style="color:#a6e22e">sheetName</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;addrow&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">||</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;done&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;unknown action&#34;</span>;
+</span></span></code></pre></div><p>这段脚本的作用，是在文档的最后添加一行，并将收到的数据写入该行。其中的Context.argv.xxx 就是读取传来的参数。</p>
+<p>现在，运行addrow，就会返回done</p>
+<p><img src="./assets/b00598bac51bdeea397458daaff9852157275725.png" alt="20250112_151100_17.png"></p>
+<p>云文档就变成了类似这样：</p>
+<p><img src="./assets/d51b7e9d88d57b3008f9b9462cb08a29dc33d3e0.png" alt="20250112_151100_18.png"></p>
+<h2 id="读取行数据">读取行数据</h2>
+<p><img src="./assets/e95ddf287aadfa01526ccf42cb4d574bffc26907.png" alt="20250112_151100_19.png"></p>
+<p><img src="./assets/6d1a9efa5ae0336ec7c8ee02499d9895617d1679.png" alt="20250112_151100_20.png"></p>
+<p>告诉脚本需要读取的行的行号，让他返回该行的数据。</p>
+<p><img src="./assets/ed8742c2c595576fae57bfe0567fbfcb4fc31fe6.png" alt="20250112_151100_21.png"></p>
+<p>脚本如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;getrow&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">row</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">maxCol</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">ColumnEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Range</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">maxCol</span>)).<span style="color:#a6e22e">Value2</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="查找数据">查找数据</h2>
+<p><img src="./assets/6508df7a99e17d0294d2f6b554b74bbf1db62f9b.png" alt="20250112_151100_22.png"></p>
+<p><img src="./assets/89f153df9234621678480fd035df70a467d69b6e.png" alt="20250112_151100_23.png"></p>
+<p>在第一列中查找zhang，返回：</p>
+<p><img src="./assets/b417bd934d9f75e96d80f85027fc9ef7eaa0ba10.png" alt="20250112_151100_24.png"></p>
+<p>大多数情况下，我们是不知道数据所在的行号的。
+我们可以在col列中查找value数据，若找到，返回当前行的数据列表，若没有，返回空列表。你也可以修改脚本，仅返回某个单元格的数据。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;lookup&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rowEnd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">colEnd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">ColumnEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cells</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">found</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">rowEnd</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cells</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">Value2</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">found</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">found</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [];
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Range</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">found</span>, <span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">found</span>, <span style="color:#a6e22e">colEnd</span>)).<span style="color:#a6e22e">Value2</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="删除行">删除行</h2>
+<p><img src="./assets/a070f666af00f089d38fe907b8cd644eea295705.png" alt="20250112_151100_25.png"></p>
+<p><img src="./assets/3310c6c887b16d333e562c825109901336b77621.png" alt="20250112_151100_26.png"></p>
+<p>在col列中查找value，若找到，将当前行删除。</p>
+<p>脚本如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;delete&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rowEnd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cells</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//这里我们要从最后一行倒着向上查找
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rowEnd</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cells</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">Value2</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">cells</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">EntireRow</span>.<span style="color:#a6e22e">Delete</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;done&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>更多的更复杂的查询脚本可以在此基础上修改而来。</p>
+<h1 id="云文档增删改查脚本">云文档增删改查脚本</h1>
+<p>这段脚本包含了读取行、列、单元格、整张表，查询行，添加行，删除行等功能，可以直接使用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//获取命令参数和数据表名。若没有指定就用默认值。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">action</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">action</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;getsheet&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sheetName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">sheetname</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;Sheet1&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sh</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Application</span>.<span style="color:#a6e22e">Sheets</span>(<span style="color:#a6e22e">sheetName</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//在col列中查找value值，若找到返回整行，否则返回空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;lookup&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">colEnd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">ColumnEnd</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rowEnd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cells</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">found</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">rowEnd</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cells</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">Value2</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">found</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">found</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#e6db74">&#34;[]&#34;</span>);
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Range</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">found</span>, <span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">found</span>, <span style="color:#a6e22e">colEnd</span>)).<span style="color:#a6e22e">Value2</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//返回row行col列的单元格的值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;getcell&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">row</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">Value</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//返回第row行的值列表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;getrow&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">row</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">maxCol</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">ColumnEnd</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Range</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">maxCol</span>)).<span style="color:#a6e22e">Value2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//返回第col列的值列表（的列表）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;getcol&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">maxRow</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Range</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">col</span>), <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">maxRow</span>, <span style="color:#a6e22e">col</span>)).<span style="color:#a6e22e">Value2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//返回整个表格的值列表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;getsheet&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">Value2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//在表格末尾添加一行并赋值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;addrow&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">||</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#e6db74">&#34;done&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//设置第row行的数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;setrow&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">row</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">||</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#e6db74">&#34;done&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//设置第row行第col列的单元格的值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;setcell&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">row</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>(<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#e6db74">&#34;done&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//在第col列中查找value值，若找到，则删除整行
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;delete&#34;</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">col</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Context</span>.<span style="color:#a6e22e">argv</span>.<span style="color:#a6e22e">col</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rowEnd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">UsedRange</span>.<span style="color:#a6e22e">RowEnd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cells</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sh</span>.<span style="color:#a6e22e">Cells</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//这里我们要从最后一行倒着向上查找
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rowEnd</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">cells</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">Value2</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">cells</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">col</span>).<span style="color:#a6e22e">EntireRow</span>.<span style="color:#a6e22e">Delete</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#e6db74">&#34;done&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#e6db74">&#34;unknown action&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//格式化返回值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildData</span>(<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> { <span style="color:#e6db74">&#34;action&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>, <span style="color:#e6db74">&#34;result&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span> }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="结束语">结束语</h1>
+<p>现在，使用脚本令牌我们可以轻松的完成数据的增删改查，扔掉老爷车 SQL，使用 JavaScript 来进行“为所欲为”的结构化查询，快来体验一下吧。</p>
+<p>参考文档：
+AirScript文档： <a href="https://airsheet.wps.cn/docs/">https://airsheet.wps.cn/docs/</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -60,57 +60,21 @@
   <h1>表格视图扩展</h1>
   <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
   <p>表格视图扩展,可以用来直接在ai中显示表格，并可以设置表格样式</p>
-<h1 id="更新记录">更新记录</h1>
-<p>v9
-as request of @TIMAI2, <strong>SetJavascript</strong> function added.It will inject javascript to end of body element before show the table. No script tag needed.</p>
-<p>v8
-add event <strong>OnShowTable</strong>, fired after ShowTable is called.</p>
-<p>v7
-add property <strong>TransparentBackground</strong>, designer only.</p>
-<p>V6</p>
-<ol>
-<li>SetStyleSheet now can accept url to an external css file.</li>
-<li>add SetClass block, which can set class to a tag or id selector</li>
-<li>add ClearStyle block, which can clear all styles, including the native basic style(table border)</li>
-<li>bring back ShowTable. since this will greatly enhance the performance of the extension.</li>
-<li>add RunJs function and AfterRunJs event.</li>
-<li>add SetStyleWithJs function</li>
-</ol>
-<p>v5</p>
-<ol>
-<li>增加了OnScroll事件</li>
-</ol>
-<p>v4</p>
-<ol>
-<li>增加ScrollTo方法。</li>
-<li>废弃ShowTable方法。</li>
-</ol>
-<p>v3</p>
-<ol>
-<li>增加了ClearTable块。清除以前设置的数据、所有样式。</li>
-<li>其他修改，每行数据可以长度不同</li>
-</ol>
-<p>v2</p>
-<ol>
-<li>增加SetStyleSheet块，可以直接写样式表了。</li>
-<li>增加ShowTable块，所有的数据和样式设置好以后，需要调用此块，否则表格不显示了。</li>
-<li>增加了一个SourceCode属性块，调试时可能有用。</li>
-<li>增加了HasHead和HasFoot属性，用来将第一行和最后一行数据设为表头或者表尾。默认是不包含的。</li>
-</ol>
 <h1 id="前言">前言</h1>
 <p>本来有个教程，教大家<a href="/table">如何显示表格</a>，但是有网友反映还是不够简洁，现在我把这个方法进一步打包成了扩展，真正做到开箱即用。</p>
 <p>先上图看看效果如何：
 <img src="./assets/20250303_125549.png" alt="20250303_125549.png"></p>
 <h1 id="相关代码块">相关代码块</h1>
 <h2 id="初始化">初始化</h2>
-<p><img src="./assets/20250303_125628.png" alt="20250303_125628.png"></p>
+<p><img src="./assets/2025-04-12-12-11-16-image.png" alt=""></p>
 <p>指定表格要显示在哪个布局之中（可以是垂直布局或者水平布局均可）</p>
+<p>不需要垂直滚动布局或者水平滚动布局，因为本扩展可以处理滚动。</p>
 <h2 id="设置数据">设置数据</h2>
-<p><img src="./assets/20250303_125657.png" alt="20250303_125657.png"></p>
+<p><img src="./assets/2025-04-12-12-11-32-image.png" alt=""></p>
 <p>data需要是一个列表的列表</p>
 <p>每次设置数据，会覆盖前面的数据。</p>
 <h2 id="设置单个样式">设置单个样式</h2>
-<p><img src="./assets/20250303_125731.png" alt="20250303_125731.png"></p>
+<p><img src="./assets/2025-04-12-12-11-41-image.png" alt=""></p>
 <p>样式设置完全是css的标准，具体请搜索如何写css的样式。</p>
 <p>这个可以使用多次，每次设置一个选择器的一个属性。</p>
 <p>selector 选择器</p>
@@ -238,20 +202,37 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
       </tr>
   </tbody>
 </table>
-<h2 id="批量设置样式">批量设置样式</h2>
-<p><img src="./assets/20250303_130043.png" alt="20250303_130043.png"></p>
+<h2 id="设置样式表">设置样式表</h2>
+<p><img src="./assets/2025-04-12-12-11-58-image.png" alt=""></p>
 <p>如果你有很多样式要写，用上面的SetStyle就需要多个，比较麻烦，可以使用这个块，直接把样式表写在文本中。</p>
 <p>这个块只能使用一次，后面调用会把前面的覆盖。所以把需要写的样式一次性都写在这里面。</p>
 <h2 id="显示表格">显示表格</h2>
 <p><img src="./assets/2025-04-12-11-39-15-image.png" alt=""></p>
-<p>在修改数据和设置样式后，必须调用这个showTable,否则样式或数据不更新</p>
-<h2 id="清除样式">清除样式</h2>
+<p>在修改数据和设置样式后，必须调用这个showTable,否则样式或数据不更新。</p>
+<p>表格显示完成，会引发OnShowTable事件。</p>
+<h2 id="设置类">设置类</h2>
+<p><img src="./assets/2025-04-12-12-13-23-image.png" alt=""></p>
+<h2 id="设置javascript">设置javascript</h2>
+<p><img src="./assets/2025-04-12-12-13-46-image.png" alt=""></p>
+<p>只是插入一段js，并不执行，需要调用ShowTable才会执行。</p>
+<h2 id="清除表格">清除表格</h2>
 <p><img src="./assets/20250303_130222.png" alt="20250303_130222.png"></p>
 <p>原来设置的所有数据和样式都被清空（仅保留默认的样式）。</p>
+<h2 id="清除样式">清除样式</h2>
+<p><img src="./assets/2025-04-12-12-15-07-image.png" alt=""></p>
+<p>所有样式被清除</p>
 <h2 id="滚动表格">滚动表格</h2>
-<p><img src="./assets/20250303_130107.png" alt="2023-05-10T05:33:22.png"></p>
-<p>将表格滑动到某行某列（让该单元格可见）。</p>
+<p><img src="./assets/2025-04-12-12-16-23-image.png" alt=""></p>
+<p>将表格左上角（若可以）滑动到某行某列（让该单元格可见）。</p>
 <p>smooth: 是否平滑滚动</p>
+<p>滚动完成，会引发OnScroll事件。</p>
+<h2 id="运行javascript">运行javascript</h2>
+<p><img src="./assets/2025-04-12-12-18-28-image.png" alt=""></p>
+<p>js会被立即运行，无需重新调用showTable。</p>
+<p>运行完毕，若有返回值，会引发AfterRunJs事件。</p>
+<h2 id="使用javascript修改样式">使用javascript修改样式</h2>
+<p><img src="./assets/2025-04-12-12-19-06-image.png" alt=""></p>
+<p>样式会立即执行，无需重新调用showTable。是上面RunJs的重新包装块。</p>
 <h2 id="内置常用的样式">内置常用的样式</h2>
 <p>返回网页源码
 <img src="./assets/20250303_130253.png" alt="20250303_130253.png"></p>
@@ -270,9 +251,7 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
 <p>设置边框宽度
 <img src="./assets/20250303_130544.png" alt="20250303_130544.png"></p>
 <p>设置所有文本字号</p>
-<h3 id="表格滚动完成事件">表格滚动完成事件</h3>
-<p><img src="./assets/20250303_130610.png" alt="20250303_130610.png"></p>
-<h2 id="表格显示完成事件">表格显示完成事件</h2>
+<h3 id="表格显示完成事件">表格显示完成事件</h3>
 <p><img src="./assets/20250303_130636.png" alt="20250303_130636.png"></p>
 <h2 id="js执行完成事件">js执行完成事件</h2>
 <p><img src="./assets/20250303_130648.png" alt="20250303_130648.png"></p>
@@ -294,10 +273,11 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
 <p>同理，固定左侧第一列：</p>
 <p><img src="./assets/2025-04-12-11-31-25-image.png" alt=""></p>
 <p>例子4：合并单元格</p>
-<p><img src="./assets/c1cc5649f61cc171eaf52e01c77e4c5faca51231.png" alt=""></p>
+<p><img src="./assets/2025-04-12-12-27-15-image.png" alt=""></p>
 <h1 id="下载链接">下载链接</h1>
 <p><a href="./assets/20250303_130912.aix">cn.kevinkun.TableViewer.v8.aix</a></p>
 <p><a href="./assets/20250303_130930.aix">cn.kevinkun.TableViewer.v9.aix</a></p>
+<p>更多讨论，请[查看这里](<a href="https://community.appinventor.mit.edu/t/free-tableviewer-fully-style-customized-to-show-table-data/67190/724">[FREE] TableViewer - fully style customized to show table data - Extensions - MIT App Inventor Community</a>)</p>
 </div>
 
 	<div id="vcomments"></div>

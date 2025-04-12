@@ -6,7 +6,7 @@
     <description>Recent content on 浮云小站</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Nov 2022 09:03:20 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 12 Apr 2025 15:03:20 +0800</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>动态组件扩展</title>
@@ -23,6 +23,13 @@
       <description>&lt;p&gt;表格视图扩展,可以用来直接在ai中显示表格，并可以设置表格样式&lt;/p&gt;</description>
     </item>
     <item>
+      <title>AirScript与金山文档</title>
+      <link>/airscript/</link>
+      <pubDate>Sat, 12 Apr 2025 15:03:20 +0800</pubDate>
+      <guid>/airscript/</guid>
+      <description>&lt;p&gt;AirScript相当于一段脚本，嵌入在金山文档组件中，运行在云端，使用JavaScript语言编写，提供对表格数据的增删改查等功能。正是因为他运行在云端，我们可以使用他来实现跨端共享数据&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>AI2中如何调试应用</title>
       <link>/debug/</link>
       <pubDate>Sun, 20 Nov 2022 09:03:20 -0800</pubDate>
@@ -30,7 +37,7 @@
       <description>&lt;p&gt;应用开发过程中，调试是必不可少的步骤。很多同学每次代码有点变动，就整个项目编译成apk安装到手机上进行调试，这是不对的。不仅费时费事，而且增加了编译服务器的压力。App Inventor提供了AI伴侣，让我们可以实时的调试。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>AirTable extension </title>
+      <title>AirTable extension</title>
       <link>/airtable/</link>
       <pubDate>Sun, 20 Nov 2022 09:03:20 -0800</pubDate>
       <guid>/airtable/</guid>

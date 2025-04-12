@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorial on 浮云小站</title>
+    <link>/tags/tutorial/</link>
+    <description>Recent content in Tutorial on 浮云小站</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Apr 2025 15:03:20 +0800</lastBuildDate>
+    <atom:link href="/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AirScript与金山文档</title>
+      <link>/airscript/</link>
+      <pubDate>Sat, 12 Apr 2025 15:03:20 +0800</pubDate>
+      <guid>/airscript/</guid>
+      <description>&lt;p&gt;AirScript相当于一段脚本，嵌入在金山文档组件中，运行在云端，使用JavaScript语言编写，提供对表格数据的增删改查等功能。正是因为他运行在云端，我们可以使用他来实现跨端共享数据&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
