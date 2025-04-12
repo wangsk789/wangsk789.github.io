@@ -45,16 +45,11 @@
     </nav>
 	
 	<div >
+	<form action="/search">
             <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
-        </div>
-		<script>
-		var input = document.getElementById("search-query");
-		input.onkeydown=function(e){
-				if(e.keyCode == 13){
-					location.href = "/search/?s="+input.value;
-				}
-			};
-		</script>
+	</form>
+    </div>
+	
 		
     <p>Copyright (c) 2025, Kevinkun</p>
   </div>
@@ -125,9 +120,9 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
 <table>
   <thead>
       <tr>
-          <th>&ndash;</th>
-          <th>&ndash;</th>
-          <th>&ndash;</th>
+          <th>需要</th>
+          <th>selector</th>
+          <th>说明</th>
           <th></th>
       </tr>
   </thead>
@@ -135,7 +130,7 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
       <tr>
           <td>1.</td>
           <td>table</td>
-          <td>表格</td>
+          <td>整个表格</td>
           <td></td>
       </tr>
       <tr>
@@ -147,13 +142,13 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
       <tr>
           <td>3.</td>
           <td>tr</td>
-          <td>行</td>
+          <td>所有行</td>
           <td></td>
       </tr>
       <tr>
           <td>4.</td>
           <td>td</td>
-          <td>单元格</td>
+          <td>所有单元格</td>
           <td></td>
       </tr>
       <tr>
@@ -177,26 +172,86 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
   </tbody>
 </table>
 <h3 id="常用的attribute">常用的attribute：</h3>
-<p>|&ndash;|&ndash;|&ndash;|
-|1. |background-color |背景色|
-|2. |color |文本颜色|
-|3. |padding |内边距|
-|4. |margin |外边距|
-|5. |width |宽度|
-|6. |height |高度|
-|7. |font-size |字号|
-|8. |border-width |边框宽度|
-|9. |border-color |边框颜色|</p>
+<table>
+  <thead>
+      <tr>
+          <th>序号</th>
+          <th>属性</th>
+          <th>说明</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>background-color</td>
+          <td>背景色</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>color</td>
+          <td>文本颜色</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>padding</td>
+          <td>内边距</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>margin</td>
+          <td>外边距</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>width</td>
+          <td>宽度</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>height</td>
+          <td>高度</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>font-size</td>
+          <td>字号</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>border-width</td>
+          <td>边框宽度</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>border-color</td>
+          <td>边框颜色</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
 <h2 id="批量设置样式">批量设置样式</h2>
 <p><img src="./assets/20250303_130043.png" alt="20250303_130043.png"></p>
 <p>如果你有很多样式要写，用上面的SetStyle就需要多个，比较麻烦，可以使用这个块，直接把样式表写在文本中。</p>
 <p>这个块只能使用一次，后面调用会把前面的覆盖。所以把需要写的样式一次性都写在这里面。</p>
+<h2 id="显示表格">显示表格</h2>
+<p><img src="./assets/2025-04-12-11-39-15-image.png" alt=""></p>
+<p>在修改数据和设置样式后，必须调用这个showTable,否则样式或数据不更新</p>
 <h2 id="清除样式">清除样式</h2>
-<p>原来设置的所有数据和样式都被清空。
-<img src="./assets/20250303_130222.png" alt="20250303_130222.png"></p>
+<p><img src="./assets/20250303_130222.png" alt="20250303_130222.png"></p>
+<p>原来设置的所有数据和样式都被清空（仅保留默认的样式）。</p>
 <h2 id="滚动表格">滚动表格</h2>
-<p>将表格滑动到某行某列（让该单元格可见）</p>
 <p><img src="./assets/20250303_130107.png" alt="2023-05-10T05:33:22.png"></p>
+<p>将表格滑动到某行某列（让该单元格可见）。</p>
+<p>smooth: 是否平滑滚动</p>
 <h2 id="内置常用的样式">内置常用的样式</h2>
 <p>返回网页源码
 <img src="./assets/20250303_130253.png" alt="20250303_130253.png"></p>
@@ -214,8 +269,9 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
 <img src="./assets/20250303_130517.png" alt="20250303_130517.png"></p>
 <p>设置边框宽度
 <img src="./assets/20250303_130544.png" alt="20250303_130544.png"></p>
-<p>设置所有文本字号
-<img src="./assets/20250303_130610.png" alt="20250303_130610.png"></p>
+<p>设置所有文本字号</p>
+<h3 id="表格滚动完成事件">表格滚动完成事件</h3>
+<p><img src="./assets/20250303_130610.png" alt="20250303_130610.png"></p>
 <h2 id="表格显示完成事件">表格显示完成事件</h2>
 <p><img src="./assets/20250303_130636.png" alt="20250303_130636.png"></p>
 <h2 id="js执行完成事件">js执行完成事件</h2>
@@ -230,13 +286,15 @@ add property <strong>TransparentBackground</strong>, designer only.</p>
 <p>例子1：基本用法</p>
 <p><img src="./assets/20250303_130748.png" alt="20250303_130748.png">
 <img src="./assets/20250303_130804.png" alt="20250303_130804.png"></p>
-<p>例子2：高亮当前选中单元格</p>
+<p>例子2：高亮当前选中单元格，并取消高亮上次单元格</p>
 <p><img src="./assets/20250303_130817.png" alt="20250303_130817.png"></p>
 <p>例子3：固定表格第一行。这样在上下滚动时，表头固定在屏幕上方。</p>
-<p><img src="./assets/20250303_130835.png" alt="20250303_130835.png"></p>
-<p><img src="./assets/20250303_131046.png" alt="20250303_131046.png"></p>
+<p><img src="./assets/2025-04-12-11-29-10-image.png" alt=""></p>
+<!-- raw HTML omitted -->
+<p>同理，固定左侧第一列：</p>
+<p><img src="./assets/2025-04-12-11-31-25-image.png" alt=""></p>
 <p>例子4：合并单元格</p>
-<p><img src="./assets/578343457.png" alt="578343457.png"></p>
+<p><img src="./assets/c1cc5649f61cc171eaf52e01c77e4c5faca51231.png" alt=""></p>
 <h1 id="下载链接">下载链接</h1>
 <p><a href="./assets/20250303_130912.aix">cn.kevinkun.TableViewer.v8.aix</a></p>
 <p><a href="./assets/20250303_130930.aix">cn.kevinkun.TableViewer.v9.aix</a></p>
