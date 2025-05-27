@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>离线运行App Inventor &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>离线运行App Inventor</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>MIT的App Inventor 2服务器放在美国，国内连接慢，甚至出现可能连不上的情况。</p>
+<p>使用离线版就可以愉快的在本地开发了。有能力的同学，甚至可以自己修改源码，打造自己的离线版本。</p>
+<p>本文以在Windows系统为例。</p>
+<h1 id="准备工作">准备工作</h1>
+<p>首先准备以下软件并安装：</p>
+<ol>
+<li>
+<p>git</p>
+</li>
+<li>
+<p>ant</p>
+</li>
+<li>
+<p>openJDK</p>
+</li>
+<li>
+<p>python</p>
+</li>
+<li>
+<p>Google Cloud SDK</p>
+</li>
+</ol>
+<p>如果是自己找软件下载的话注意openjdk版本只要1.8版本就可以了，更高的话不支持。</p>
+<p>注意下载完成后，要在环境变量中设置好路径(请百度搜索如何设置环境变量)。</p>
+<p>以上软件我已经保存到这里，可以直接下载安装：</p>
+<p><a href="https://wwu.lanzout.com/b02unvsid">https://wwu.lanzout.com/b02unvsid</a>
+密码:5veg</p>
+<h1 id="下载源码">下载源码</h1>
+<p>MIT App Inventor 2源码的官方仓库在这里：</p>
+<p><a href="https://github.com/mit-cml/appinventor-sources">https://github.com/mit-cml/appinventor-sources</a></p>
+<p>国内连接非常慢，我们可以使用国内的gitee网站中转下。</p>
+<p>这样以后我们如果对源码有修改，还可以push到gitee进行保存。</p>
+<p>登录gitee.com，新建仓库，将上述源码从github导入仓库。</p>
+<p>同样的方法，将这两个仓库fork到gitee：</p>
+<p><a href="https://github.com/mit-cml/blockly.git">https://github.com/mit-cml/blockly.git</a></p>
+<p><a href="https://github.com/mit-cml/closure-library.git">https://github.com/mit-cml/closure-library.git</a></p>
+<p>这两个是编译代码用到的子模块，也需要下载到本地。</p>
+<p>修改gitee上appinventor-sources仓库的.gitmodules文件内的url为相应的gitee的网址：
+<img src="./assets/20250303_122802.png" alt="20250303_122802.png"></p>
+<p>资源管理器 打开D盘，空白地方右键，运行 git bush here</p>
+<p>运行以下代码下载源码：</p>
+<pre tabindex="0"><code>git clone https://gitee.com/你的用户名/appinventor-sources.git
+</code></pre><p>运行以下代码下载子模块：</p>
+<pre tabindex="0"><code>cd appinventor-sources
+git submodule update --init
+</code></pre><h2 id="开始编译">开始编译</h2>
+<p>双击运行appinventor-sources下面的buildtools.cmd，</p>
+<ol>
+<li>
+<p>输入B，执行Doctor命令，查看编译源码需要的软件是否已经准备好；</p>
+</li>
+<li>
+<p>输入2，执行Make Auth Key命令；</p>
+</li>
+<li>
+<p>输入3，执行Build App Inventor命令；这步主要很长时间，最后会有提示说编译成功Success之类</p>
+</li>
+</ol>
+<h2 id="开始开发">开始开发</h2>
+<p>编译完成后，继续在buildtools.cmd运行界面</p>
+<ol>
+<li>输入7，运行开发服务器，就可以在浏览器输入网址 http://localhost:8888/， 进行开发了。</li>
+</ol>
+<p>点击Click Here to use your Google Account to login，然后随便输入个邮箱号，就可以进入系统。</p>
+<ol start="2">
+<li>输入9，运行编译服务器 （如果你暂时不想编译成apk，可以先不执行这一步）</li>
+</ol>
+<h2 id="安装ai伴侣">安装AI伴侣</h2>
+<p>编译成功后，在appinventor-sources\appinventor\build\buildserver下可以找到AI伴侣，将他安装到手机或者安卓模拟器内，就可以实时调试了。</p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>俄罗斯方块 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>俄罗斯方块</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>MAKE TETRIX GAME FROM SCRATCH IN APP INVENTOR 2</p>
+<h2 id="-designer-view">## Designer view</h2>
+<p>In Designer view we add</p>
+<ol>
+<li>one Canvas, with width 240 and height 480.</li>
+<li>six Buttons, for StartGame, MoveLeft, MoveRight, RotateCounterClockwise, RotateClockwise, RapidDrop</li>
+<li>one Clock, set the TimerEnabled to false, set Interval to 200</li>
+<li>one Notifier component</li>
+<li>one Web component</li>
+</ol>
+<h2 id="board-grid">Board grid</h2>
+<p>We will divide our canvas into 20 x 10 small grids. Each grid has width 24 and height 24. Each combination will occupy 4 grids.</p>
+<p><img src="./assets/20250303_131251.png" alt="20250303_131251.png"></p>
+<p>The white grids are on our canvas, the gray ones are the out edge of the canvas, the combinations can not go to the gray grids.</p>
+<p>We initialize our board data, we fill the gray ones with 9, white one with 0. Later, if the grid is occupied, we will modify this board_data with color index.</p>
+<pre tabindex="0"><code>9,9,9,9,9,9,9,9,9,9,9,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,0,0,0,0,0,0,0,0,0,0,9,
+9,9,9,9,9,9,9,9,9,9,9,9
+</code></pre><p><img src="./assets/20250303_131318.png" alt="20250303_131318.png"></p>
+<p>the board_data is a one-dimension list.</p>
+<h2 id="draw-one-piece-on-canvas">Draw one piece on Canvas</h2>
+<p>We need a procedure to convert location to row/col.</p>
+<p><img src="./assets/20250303_131336.png" alt="20250303_131336.png"></p>
+<p><img src="./assets/20250303_131352.png" alt="20250303_131352.png"></p>
+<p>Initialize variable COLORS for all the combination colors.</p>
+<p><img src="./assets/20250303_131408.png" alt="20250303_131408.png"></p>
+<p>To draw one small piece:</p>
+<p><img src="./assets/20250303_131423.png" alt="20250303_131423.png"></p>
+<p>The girds with width 24 and height 24, but we draw the piece with only 22 x 22, that will make a gap between the pieces.</p>
+<p>Now,it&rsquo;s time to test our code:</p>
+<p><img src="./assets/20250303_131442.png" alt="20250303_131442.png"></p>
+<p>if a small piece drawn on the top left corner of the canvas, it means our code is good.</p>
+<p>Change 13 to 250  to see if it&rsquo;s at bottom left corner.</p>
+<h2 id="combinations-and-shapes">Combinations and shapes</h2>
+<p>In Tetrix game, there are total 7 types of combinations, each has 4 small pieces.</p>
+<p>Each combination can rotate 0/90/180/270 degree, that makes total 4 shapes of each combination.</p>
+<p>We calculate the location difference between each piece to its top left location as the offset.</p>
+<p>We take type L for example.</p>
+<p><img src="./assets/20250303_131459.png" alt="20250303_131459.png"></p>
+<p>If we put at 19 (top left corner), this combination will occupy location 19, 31, 43, and 44. the offset to 19 is 0,12,24,25.</p>
+<p>Then we rotate it 90 degree counter clockwise,</p>
+<p><img src="./assets/20250303_131517.png" alt="20250303_131517.png"></p>
+<p>Now the offset became 2,12,13,14.</p>
+<p>This offset is only determined by combination type and rotate, has nothing to do with its location.</p>
+<p>For example, we move the combination 2 grids  left:</p>
+<p><img src="./assets/20250303_131546.png" alt="20250303_131546.png"></p>
+<p>Now the top left at 17, but  offset still is 0,12,24,25.</p>
+<p>The complete offset table:</p>
+<p><img src="./assets/20250303_131606.png" alt="20250303_131606.png"></p>
+<p>With this method, we record all the offset of all combination and rotate. Some offsets of combination (type O and type I) is same when different rotate.</p>
+<pre tabindex="0"><code>[
+    [
+        [0,12,24,25],[2,12,13,14],[0,1,13,25],[0,1,2,12]
+    ],[
+        [1,13,24,25],[0,1,2,14],[0,1,12,24],[0,12,13,14]
+    ],[
+        [0,1,13,14],[1,12,13,24],[0,1,13,14],[1,12,13,24]
+    ],[
+        [1,2,12,13],[0,12,13,25],[1,2,12,13],[0,12,13,25]
+    ],[
+        [0,1,2,13],[0,12,13,24],[1,12,13,14],[1,12,13,25]
+    ],[
+        [0,1,12,13],[0,1,12,13],[0,1,12,13],[0,1,12,13]
+    ],[
+        [0,12,24,36],[0,1,2,3],[0,12,24,36],[0,1,2,3]
+     ]
+]
+</code></pre><p>![2023-05-10T05:48:51.png][12]</p>
+<h2 id="draw-a-combination">Draw a combination</h2>
+<p>Now we can generate a random combination and draw it on the canvas.</p>
+<p>We need some variable to record current combination&rsquo;s state: top left, rotate, type, and offset.</p>
+<p><img src="./assets/20250303_131622.png" alt="20250303_131622.png"></p>
+<p><img src="./assets/20250303_131634.png" alt="20250303_131634.png"></p>
+<p>17 is the center of the first row. the current offset can be looked up in the OFFSET TABLE.</p>
+<p><img src="./assets/20250303_131652.png" alt="20250303_131652.png"></p>
+<p>According to the top left and offset, we can calculate location of each piece, then draw them one by one.</p>
+<p><img src="./assets/20250303_131706.png" alt="20250303_131706.png"></p>
+<p>Now, time to test our code:</p>
+<p><img src="./assets/20250303_131721.png" alt="20250303_131721.png"></p>
+<p>You will see random combination (with different type and rotate) show up on top of the canvas when press Start Game button.</p>
+<h2 id="move-the-combination">Move the combination</h2>
+<p>Now to manipulate a combination is very easy, we just need to change its top left, or its rotate, then redraw it.</p>
+<p>To move left, we minus 1 from Top left location.</p>
+<p>To right, add 1 to Top left location.</p>
+<p>To move down, we add 12 to Top left location.</p>
+<p>To rotate it counter clockwise, just add 1 to current rotate.</p>
+<p>To rotate it clockwise, minus 1 from current rotate</p>
+<p><img src="./assets/20250303_131739.png" alt="20250303_131739.png"></p>
+<p><img src="./assets/20250303_131754.png" alt="20250303_131754.png"></p>
+<p><img src="./assets/20250303_131809.png" alt="20250303_131809.png"></p>
+<p>Don&rsquo;t forget to update the current offset after change rotate. and initialize the board data when start game.</p>
+<p>Now test the code, you will find the combination is moving /rotating.</p>
+<h2 id="restrain-the-combination-on-canvas">Restrain the combination on canvas</h2>
+<p>But it will move out of the canvas, which need to be  avoided:</p>
+<p>First we need to check if a grid/location is empty:</p>
+<p><img src="./assets/20250303_131822.png" alt="20250303_131822.png"></p>
+<p>(Why we need to add 1 to location?)</p>
+<p>Then check if all the destination locations are empty:</p>
+<p><img src="./assets/20250303_131834.png" alt="20250303_131834.png"></p>
+<p>Modify the button click event:</p>
+<p><img src="./assets/20250303_131901.png" alt="20250303_131901.png"></p>
+<p><img src="./assets/20250303_131917.png" alt="20250303_131917.png"></p>
+<p>You can change the IF block in btnDown.Click event to WHILE TEST block, this will bring down the combination to bottom directly.</p>
+<p>Now test your code, if the combination can be moved outside the canvas?</p>
+<h2 id="combination-move-down-automatically">Combination move down automatically</h2>
+<p>It&rsquo;s time to let the combination move down by itself:</p>
+<p><img src="./assets/20250303_131935.png" alt="20250303_131935.png"></p>
+<p>When clocker timer fires, we try to move the combination down. if not possible (reach bottom or blocked by other combinations), we regenerate a new one.</p>
+<p><img src="./assets/20250303_131949.png" alt="20250303_131949.png"></p>
+<p>Now press Start game, your combination will falling down by it self. BUT the combination do not stay at bottom.</p>
+<h2 id="add-combination-to-canvas">Add combination to canvas</h2>
+<p>When combination reach bottom, add locations occupied by the combination to the board data.</p>
+<p><img src="./assets/20250303_132003.png" alt="20250303_132003.png"></p>
+<p>And we need to draw the board data on canvas:</p>
+<p><img src="./assets/20250303_132021.png" alt="20250303_132021.png"></p>
+<p><img src="./assets/20250303_132035.png" alt="20250303_132035.png"></p>
+<p><img src="./assets/20250303_132047.png" alt="20250303_132047.png"></p>
+<p>Don&rsquo;t forget to test your code here.</p>
+<h2 id="check-game-over">Check game over</h2>
+<p>now we can move the combination left/right/down, rotate, and falling down automatically.</p>
+<p>So when will the game over? we can set game over if the new generated combination can not be placed at location 17. If game over, disable the timer, that will stop everything.</p>
+<p><img src="./assets/20250303_132102.png" alt="20250303_132102.png"></p>
+<p>Start game, and do nothing, wait until you see the game over alert.</p>
+<h2 id="remove-fill-up-rows">Remove fill-up rows</h2>
+<p>Now the last important step.</p>
+<p>When the combination reach bottom or other combinations, before generate a new combination, we need to check if any rows can be removed.</p>
+<p>We will only need to check the rows where the combination is at.</p>
+<p><img src="./assets/20250303_132110.png" alt="20250303_132110.png"></p>
+<p>Then we check one by one if it&rsquo;s removable. If any one piece is empty, the answer is no.</p>
+<p><img src="./assets/20250303_132124.png" alt="20250303_132124.png"></p>
+<p>If possible, we remove the row and add a new row.</p>
+<p><img src="./assets/20250303_132133.png" alt="20250303_132133.png"></p>
+<p><img src="./assets/20250303_132145.png" alt="20250303_132145.png"></p>
+<p>Modify the clock.Timer event</p>
+<p><img src="./assets/20250303_132205.png" alt="20250303_132205.png"></p>
+<p>Now all the main function finished.</p>
+<h2 id="other">OTHER</h2>
+<p>Next you can add some other functions like update score, show preview of next combination, better UI.</p>
+<p>Have fun and keep coding&hellip;</p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

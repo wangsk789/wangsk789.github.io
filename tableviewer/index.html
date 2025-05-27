@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>表格视图扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>表格视图扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>表格视图扩展,可以用来直接在ai中显示表格，并可以设置表格样式</p>
+<h1 id="更新记录">更新记录</h1>
+<p>v9
+as request of @TIMAI2, <strong>SetJavascript</strong> function added.It will inject javascript to end of body element before show the table. No script tag needed.</p>
+<p>v8
+add event <strong>OnShowTable</strong>, fired after ShowTable is called.</p>
+<p>v7
+add property <strong>TransparentBackground</strong>, designer only.</p>
+<p>V6</p>
+<ol>
+<li>SetStyleSheet now can accept url to an external css file.</li>
+<li>add SetClass block, which can set class to a tag or id selector</li>
+<li>add ClearStyle block, which can clear all styles, including the native basic style(table border)</li>
+<li>bring back ShowTable. since this will greatly enhance the performance of the extension.</li>
+<li>add RunJs function and AfterRunJs event.</li>
+<li>add SetStyleWithJs function</li>
+</ol>
+<p>v5</p>
+<ol>
+<li>增加了OnScroll事件</li>
+</ol>
+<p>v4</p>
+<ol>
+<li>增加ScrollTo方法。</li>
+<li>废弃ShowTable方法。</li>
+</ol>
+<p>v3</p>
+<ol>
+<li>增加了ClearTable块。清除以前设置的数据、所有样式。</li>
+<li>其他修改，每行数据可以长度不同</li>
+</ol>
+<p>v2</p>
+<ol>
+<li>增加SetStyleSheet块，可以直接写样式表了。</li>
+<li>增加ShowTable块，所有的数据和样式设置好以后，需要调用此块，否则表格不显示了。</li>
+<li>增加了一个SourceCode属性块，调试时可能有用。</li>
+<li>增加了HasHead和HasFoot属性，用来将第一行和最后一行数据设为表头或者表尾。默认是不包含的。</li>
+</ol>
+<h1 id="前言">前言</h1>
+<p>本来有个教程，教大家<a href="/table">如何显示表格</a>，但是有网友反映还是不够简洁，现在我把这个方法进一步打包成了扩展，真正做到开箱即用。</p>
+<p>先上图看看效果如何：
+<img src="./assets/20250303_125549.png" alt="20250303_125549.png"></p>
+<h1 id="相关代码块">相关代码块</h1>
+<h2 id="初始化">初始化</h2>
+<p><img src="./assets/20250303_125628.png" alt="20250303_125628.png"></p>
+<p>指定表格要显示在哪个布局之中（可以是垂直布局或者水平布局均可）</p>
+<h2 id="设置数据">设置数据</h2>
+<p><img src="./assets/20250303_125657.png" alt="20250303_125657.png"></p>
+<p>data需要是一个列表的列表</p>
+<p>每次设置数据，会覆盖前面的数据。</p>
+<h2 id="设置单个样式">设置单个样式</h2>
+<p><img src="./assets/20250303_125731.png" alt="20250303_125731.png"></p>
+<p>样式设置完全是css的标准，具体请搜索如何写css的样式。</p>
+<p>这个可以使用多次，每次设置一个选择器的一个属性。</p>
+<p>selector 选择器</p>
+<p>attribute 属性名</p>
+<p>value 属性值</p>
+<h3 id="常用的selector">常用的selector：</h3>
+<table>
+  <thead>
+      <tr>
+          <th>&ndash;</th>
+          <th>&ndash;</th>
+          <th>&ndash;</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1.</td>
+          <td>table</td>
+          <td>表格</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>2.</td>
+          <td>th</td>
+          <td>表头</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>3.</td>
+          <td>tr</td>
+          <td>行</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>4.</td>
+          <td>td</td>
+          <td>单元格</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>5.</td>
+          <td>tr:nth-child(1)</td>
+          <td>第n行 （所有偶数行可以写为tr:nth-child(2n)，奇数行就是tr:nth-child(2n+1)）</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>6.</td>
+          <td>td:nth-child(1)</td>
+          <td>第n列 （奇数偶数列原理同上）</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>7.</td>
+          <td>#r1c1</td>
+          <td>第n行第n列的单元格 （注意别漏掉#，因为我已经将每个单元格的id设置为了r1c1格式）</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="常用的attribute">常用的attribute：</h3>
+<p>|&ndash;|&ndash;|&ndash;|
+|1. |background-color |背景色|
+|2. |color |文本颜色|
+|3. |padding |内边距|
+|4. |margin |外边距|
+|5. |width |宽度|
+|6. |height |高度|
+|7. |font-size |字号|
+|8. |border-width |边框宽度|
+|9. |border-color |边框颜色|</p>
+<h2 id="批量设置样式">批量设置样式</h2>
+<p><img src="./assets/20250303_130043.png" alt="20250303_130043.png"></p>
+<p>如果你有很多样式要写，用上面的SetStyle就需要多个，比较麻烦，可以使用这个块，直接把样式表写在文本中。</p>
+<p>这个块只能使用一次，后面调用会把前面的覆盖。所以把需要写的样式一次性都写在这里面。</p>
+<h2 id="清除样式">清除样式</h2>
+<p>原来设置的所有数据和样式都被清空。
+<img src="./assets/20250303_130222.png" alt="20250303_130222.png"></p>
+<h2 id="滚动表格">滚动表格</h2>
+<p>将表格滑动到某行某列（让该单元格可见）</p>
+<p><img src="./assets/20250303_130107.png" alt="2023-05-10T05:33:22.png"></p>
+<h2 id="内置常用的样式">内置常用的样式</h2>
+<p>返回网页源码
+<img src="./assets/20250303_130253.png" alt="20250303_130253.png"></p>
+<p>是否包含表头
+<img src="./assets/20250303_130325.png" alt="20250303_130325.png"></p>
+<p>是否包含表尾
+<img src="./assets/20250303_130343.png" alt="20250303_130343.png"></p>
+<p><strong>以下块都可以通过SetStyle块来实现，只是为了方便写成内置块。</strong></p>
+<p>设置单元格内边距
+<img src="./assets/20250303_130401.png" alt="20250303_130401.png"></p>
+<p>设置表头（第一行）背景色</p>
+<p>目前只支持例如red、green这样，或者#abcdef这种16进制，不支持AppInventer中的颜色。（下同）
+<img src="./assets/20250303_130454.png" alt="20250303_130454.png"></p>
+<p>设置边框颜色
+<img src="./assets/20250303_130517.png" alt="20250303_130517.png"></p>
+<p>设置边框宽度
+<img src="./assets/20250303_130544.png" alt="20250303_130544.png"></p>
+<p>设置所有文本字号
+<img src="./assets/20250303_130610.png" alt="20250303_130610.png"></p>
+<h2 id="表格显示完成事件">表格显示完成事件</h2>
+<p><img src="./assets/20250303_130636.png" alt="20250303_130636.png"></p>
+<h2 id="js执行完成事件">js执行完成事件</h2>
+<p><img src="./assets/20250303_130648.png" alt="20250303_130648.png"></p>
+<h2 id="表格被点击事件">表格被点击事件</h2>
+<p>表格被点击时，返回点击位置的行、列、内容
+<img src="./assets/20250303_130702.png" alt="20250303_130702.png"></p>
+<h2 id="表格滚动事件">表格滚动事件</h2>
+<p>表格滚动时（手动或通过代码）引发
+<img src="./assets/20250303_130725.png" alt="20250303_130725.png"></p>
+<h1 id="示例">示例</h1>
+<p>例子1：基本用法</p>
+<p><img src="./assets/20250303_130748.png" alt="20250303_130748.png">
+<img src="./assets/20250303_130804.png" alt="20250303_130804.png"></p>
+<p>例子2：高亮当前选中单元格</p>
+<p><img src="./assets/20250303_130817.png" alt="20250303_130817.png"></p>
+<p>例子3：固定表格第一行。这样在上下滚动时，表头固定在屏幕上方。</p>
+<p><img src="./assets/20250303_130835.png" alt="20250303_130835.png"></p>
+<p><img src="./assets/20250303_131046.png" alt="20250303_131046.png"></p>
+<p>例子4：合并单元格</p>
+<p><img src="./assets/20250303_130835.png" alt="20250303_130835.png"></p>
+<h1 id="下载链接">下载链接</h1>
+<p><a href="./assets/20250303_130912.aix">cn.kevinkun.TableViewer.v8.aix</a></p>
+<p><a href="./assets/20250303_130930.aix">cn.kevinkun.TableViewer.v9.aix</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LeanDB扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>LeanDB扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>LeanDB扩展可以作为app inventor应用的后端数据支撑。进行数据的增加、修改、删除、查询等功能。</p>
+<h1 id="准备工作">准备工作</h1>
+<ol>
+<li>注册LeanCloud账号，网址是 <a href="https://www.leancloud.cn">https://www.leancloud.cn</a>；可能需要实名认证；不想认证的，~~~请切换到<strong>国际版</strong>~~~ （国际版提供的域名不支持国内访问了）。</li>
+<li>进入控制台，新建应用（相当于关系型数据库中的数据库）。我这里是新建了个应用 Jiaocheng；</li>
+<li>进入应用，点设置，点应用Keys，将右侧的Appid，AppKey，Rest Api服务器地址记下；</li>
+<li>创建一个新的Class（相当于关系型数据库中的表）。我这里新建一个Class，叫Scores。</li>
+<li>注意权限设置那里，一定要选择“无限制”，否则后续可能无法修改或删除数据。</li>
+<li>在Class中添加列时，一定要注意设置列的类型。否则后面如果把数字当成文本来更新，就会失败。</li>
+</ol>
+<h1 id="相关功能">相关功能</h1>
+<h2 id="初始化">初始化</h2>
+<p>使用上面准备工作中的数据初始化扩展。推荐在屏幕初始化中进行。</p>
+<p><img src="./assets/20250303_122239.png" alt="20250303_122239.png"></p>
+<h2 id="插入数据">插入数据</h2>
+<p><img src="./assets/20250303_122224.png" alt="20250303_122224.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>jsonData</td>
+          <td>String</td>
+          <td>要写入的数据集</td>
+      </tr>
+      <tr>
+          <td>rows</td>
+          <td>Number</td>
+          <td>成功插入的数据个数</td>
+      </tr>
+  </tbody>
+</table>
+<p>假设我们要在Scores中保存班级里面学生的考试成绩。要添加学生的一条考试记录（包括学生姓名、语文成绩、数学成绩），<strong>jsonData</strong>可以这样写</p>
+<pre tabindex="0"><code>{&#34;xingming&#34;:&#34;张三&#34;,&#34;yuwen&#34;:89,&#34;shuxue&#34;:96}
+</code></pre><p>如果同时添加多名学生成绩，可以这样写</p>
+<pre tabindex="0"><code> [
+     {&#34;xingming&#34;:&#34;张三&#34;,&#34;yuwen&#34;:56,&#34;shuxue&#34;:89},
+     {&#34;xingming&#34;:&#34;李四&#34;,&#34;yuwen&#34;:69,&#34;shuxue&#34;:83},
+     {&#34;xingming&#34;:&#34;王五&#34;,&#34;yuwen&#34;:98,&#34;shuxue&#34;:87}
+ ]
+</code></pre><p>注意要加方括号（一条记录可以不用）。</p>
+<h2 id="查询数据">查询数据</h2>
+<p><img src="./assets/20250303_121754.png" alt="20250303_121754.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>keys</td>
+          <td>String</td>
+          <td>查询记录中包含的字段。比如你想返回姓名和数学，就写xingming,shuxue，中间用半角逗号分隔。如果是想取回全部字段，可以设为空字串。如果全部返回，返回记录中除去我们手动添加的xingming、shuxue、yuwen等字段外，还有三个系统自己添加的：objectId（每条记录的id号）、createdAt（记录添加时间）、updatedAt（记录修改事件）</td>
+      </tr>
+      <tr>
+          <td>conditionJson</td>
+          <td>String</td>
+          <td>记录符合的条件。为json格式。比如查询姓名是老王的纪录，可以写为{“xingming“:”老王“}。也可以使用字典组件构建，请参照leancloud文档查看写法。推荐用下面的<strong>conditionJsonBuilder</strong>来构造。如果想取回全部记录，可以设为空字串。</td>
+      </tr>
+      <tr>
+          <td>order</td>
+          <td>String</td>
+          <td>返回的记录按照哪个字段排序。比如我们要按照数学成绩降序排列，可以这样写：-shuxue。负号表示降序，正号或者没有符号表示升序。多个字段用半角逗号分隔。</td>
+      </tr>
+      <tr>
+          <td>startIndex</td>
+          <td>Number</td>
+          <td>从第几条开始返回。默认1</td>
+      </tr>
+      <tr>
+          <td>maxCount</td>
+          <td>Number</td>
+          <td>一次最多返回记录的条数。默认100</td>
+      </tr>
+      <tr>
+          <td>rows</td>
+          <td>Number</td>
+          <td>返回记录条数</td>
+      </tr>
+      <tr>
+          <td>result</td>
+          <td>List</td>
+          <td>返回的记录列表</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="更新数据">更新数据</h2>
+<p><img src="./assets/20250303_121830.png" alt="20250303_121830.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>conditionJson</td>
+          <td>String</td>
+          <td>见上面<strong>查询数据</strong>部分</td>
+      </tr>
+      <tr>
+          <td>updateJson</td>
+          <td>String</td>
+          <td>要修改的数据，json格式。例如 {&ldquo;xinging&rdquo;:&ldquo;zhang san&rdquo;} 表示将符合条件的记录xingming字段改为zhangsan，  或者{&ldquo;shuxue&rdquo;:{&quot;__op&quot;:&ldquo;Increment&rdquo;,&ldquo;amount&rdquo;:5}} 表示将shuxe字段的值自增加5。具体请查看leancloud文档学习更多写法。推荐使用下面的<strong>UpdateJsonBuilder</strong>来构建。</td>
+      </tr>
+      <tr>
+          <td>rows</td>
+          <td>Number</td>
+          <td>更新的记录条数</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="删除数据">删除数据</h2>
+<p><img src="./assets/20250303_121852.png" alt="20250303_121852.png"></p>
+<p>参数含义同上面的块。</p>
+<h2 id="查询条件构造器">查询条件构造器</h2>
+<p><img src="./assets/20250303_121904.png" alt="20250303_121904.png"></p>
+<p>这个辅助块可以构造查询（或者更新或者删除）命令的<strong>conditionjson</strong>。可以更快速、更简洁的写出查询条件，减少出错率。</p>
+<p>比如我们要查询“数学成绩大于等于60 并且 语文成绩小于等于80”的学生记录，手动写json这样写：</p>
+<pre tabindex="0"><code>{&#34;$and&#34;:[{&#34;shuxue&#34;:{&#34;$gte&#34;:60}},{&#34;yuwen&#34;:{&#34;$lte&#34;:80}}]}
+</code></pre><p>其中的括号，冒号，引号，逗号太多，很容易出错。</p>
+<p>如果使用这个生成器，可以这样写：</p>
+<p><img src="./assets/20250303_121926.png" alt="20250303_121926.png"></p>
+<p>是不是非常的精炼，更加的符合自然语言。</p>
+<ul>
+<li><strong>conditionExpress</strong>：条件表达式。半角空格（至少一个空格）隔开的字符串表达式，必须为三段。第一段为字段名，两侧不要有引号，第三段为要比较的值(文本或者列表需要用半角双引号括起来。其中有&quot;双引号要写为\&quot;。\要转义为\\)，第二段为比较符号，数字时支持=,&lt;,&lt;=,&gt;,&gt;=,!=，文本时支持like（模糊）,is（精确），时间用before或者after，查询数组用in,nin,all。多个条件用and或者 or连接，并前后留有一个或以上空格。（暂不支持用括号改变比较顺序）中间的比较符号目前支持以下几种：</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>符号</th>
+          <th>意义</th>
+          <th>举例</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>=</td>
+          <td>等于</td>
+          <td>shuxue  =  80</td>
+          <td>比较数字</td>
+      </tr>
+      <tr>
+          <td>&gt; 或 gt 或 $gt</td>
+          <td>大于</td>
+          <td>shuxue  &gt;  80</td>
+          <td>比较数字</td>
+      </tr>
+      <tr>
+          <td>&gt;= 或 gte 或 $gte</td>
+          <td>大于等于</td>
+          <td>shuxue  &gt;=  80</td>
+          <td>比较数字</td>
+      </tr>
+      <tr>
+          <td>&lt; 或 lt 或 $lt</td>
+          <td>小于</td>
+          <td>shuxue  &lt;  80</td>
+          <td>比较数字</td>
+      </tr>
+      <tr>
+          <td>&lt;= 或 lte 或 $lte</td>
+          <td>小于等于</td>
+          <td>shuxue  &lt;=  80</td>
+          <td>比较数字</td>
+      </tr>
+      <tr>
+          <td>!= 或 ne 或 $ne</td>
+          <td>不等于</td>
+          <td>shuxue  !=  80</td>
+          <td>比较数字</td>
+      </tr>
+      <tr>
+          <td>like</td>
+          <td>包含（模糊查找）</td>
+          <td>xingming like &ldquo;张&rdquo;</td>
+          <td>比较文本</td>
+      </tr>
+      <tr>
+          <td>is</td>
+          <td>等于（精确查找）</td>
+          <td>xingming is &ldquo;张三&rdquo;</td>
+          <td>比较文本</td>
+      </tr>
+      <tr>
+          <td>before</td>
+          <td>&hellip;时间之前</td>
+          <td>createdAt  before  2020-02-20T00:00:00.000Z</td>
+          <td>比较时间</td>
+      </tr>
+      <tr>
+          <td>after</td>
+          <td>&hellip;时间之后</td>
+          <td>createdAt  after  2020-02-20T00:00:00.000Z</td>
+          <td>比较时间</td>
+      </tr>
+      <tr>
+          <td>in 或 $in</td>
+          <td>包含任意一个数组值</td>
+          <td>id  in  &ldquo;[2,3,4]&rdquo;</td>
+          <td>数组查询</td>
+      </tr>
+      <tr>
+          <td>nin 或 $nin</td>
+          <td>不包含任意一个数组值</td>
+          <td>xingming nin &ldquo;[&quot;老张&quot;,&quot;老李&quot;,&quot;老王&quot;]&rdquo;</td>
+          <td>数组查询</td>
+      </tr>
+      <tr>
+          <td>all 或 $all</td>
+          <td>包括所有的数组值</td>
+          <td>hobby  all  &ldquo;[&quot;skating&quot;,&quot;reading&quot;]&rdquo;</td>
+          <td>数组查询</td>
+      </tr>
+      <tr>
+          <td>size 或 $size</td>
+          <td>列表长度</td>
+          <td>hobby size  3</td>
+          <td>数组查询</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="更新条件构造器">更新条件构造器</h2>
+<p><img src="./assets/20250303_121947.png" alt="20250303_121947.png"></p>
+<p>这个辅助块可以构造<strong>更新</strong>命令的<strong>更新json</strong>，更快速、简洁的写出数据更新json，减少出错率。</p>
+<p>比如，我们要将姓名为‘张三’的学生的yuwen成绩和shuxue成绩分别加10分。我们可以这样手动写json格式的更新json：</p>
+<pre tabindex="0"><code>{&#34;shuxue&#34;:{&#34;__op&#34;:&#34;Increment&#34;,&#34;amount&#34;:10},&#34;yuwen&#34;:{&#34;__op&#34;:&#34;Increment&#34;,&#34;amount&#34;:10}}
+</code></pre><p>用本构造器来写，可以非常简单的用两个块来这样写：</p>
+<p><img src="./assets/20250303_121957.png" alt="20250303_121957.png"></p>
+<p><strong>更新表达式</strong>: 半角空格（一个或以上）隔开的字符串表达式，需要为3段。第一段为字段名，第三段为要改变的值(文本或者列表需要用半角双引号括起来。其中有&quot;双引号要写为\&quot;。\要转义为\\)。第二段是修改符号。如：&rsquo;=,+,-&lsquo;操作数字。&rsquo;to&rsquo;操作字符串。&lsquo;add,addunique,remove&rsquo;操作数组。如果修改多个字段，多个表达式之间用一个或以上半角空格分开。</p>
+<p>中间部分的op操作符号支持以下：</p>
+<table>
+  <thead>
+      <tr>
+          <th>符号</th>
+          <th>意义</th>
+          <th>举例</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>+ 或者 +=</td>
+          <td>原字段值累加</td>
+          <td>shuxue  +  10</td>
+          <td>数字字段</td>
+      </tr>
+      <tr>
+          <td>- 或者 -=</td>
+          <td>原字段值累减</td>
+          <td>shuxue  -  10</td>
+          <td>数字字段</td>
+      </tr>
+      <tr>
+          <td>=</td>
+          <td>原字段直接赋值</td>
+          <td>shuxue  =  10</td>
+          <td>数字字段</td>
+      </tr>
+      <tr>
+          <td>is 或者 to</td>
+          <td>原字段直接赋值</td>
+          <td>xingming  to  张三</td>
+          <td>文本字段</td>
+      </tr>
+      <tr>
+          <td>add</td>
+          <td>数组添加项</td>
+          <td>hobby  add  &ldquo;[\&ldquo;sleeping\&rdquo;]&rdquo;</td>
+          <td>数组字段</td>
+      </tr>
+      <tr>
+          <td>addunique</td>
+          <td>数组添加不重复项</td>
+          <td>hobby  addunique  &ldquo;[\&ldquo;sleeping\&rdquo;]&rdquo;</td>
+          <td>数组字段</td>
+      </tr>
+      <tr>
+          <td>remove</td>
+          <td>数组删除项</td>
+          <td>hobby  remove &ldquo;[\&ldquo;sleeping\&rdquo;]&rdquo;</td>
+          <td>数组字段</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="发生错误事件">发生错误事件</h2>
+<p><img src="./assets/20250303_122013.png" alt="20250303_122013.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>err</td>
+          <td>String</td>
+          <td>错误原因</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="下载链接">下载链接</h1>
+<p><a href="./assets/20250303_122144.aix">cn.kevinkun.LeanDB.aix</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

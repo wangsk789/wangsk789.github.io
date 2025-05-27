@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>补间动画扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>补间动画扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>补间动画允许你以平滑的方式更改对象的属性。你只需告诉它哪些属性要更改，当补间结束运行时它们应该具有哪些最终值，以及需要的时长，补间引擎将负责计算从起始点到结束点的值。</p>
+<p>就是说：指定动画持续的时间，开始状态和结束状态。扩展就可以（根据插值器）自动计算中间的状态，生成动画。</p>
+<h2 id="目前的问题">目前的问题：</h2>
+<p>不支持画布、图像精灵、球形精灵。</p>
+<h1 id="whats-a-tween">WHAT&rsquo;S A TWEEN</h1>
+<p>A tween (from <a href="http://en.wikipedia.org/wiki/Inbetweening"><em>in-between</em></a>) is a concept that allows you to change the values of the properties of an object in a smooth way. You just tell it which properties you want to change, which final values should they have when the tween finishes running, and how long should this take, and the tweening engine will take care of finding the intermediate values from the starting to the ending point. (from <a href="http://tweenjs.github.io/tween.js/docs/user_guide.html">http://tweenjs.github.io/tween.js/docs/user_guide.html</a>)</p>
+<h1 id="blocks">BLOCKS</h1>
+<h2 id="add-a-animator-to-a-set">Add a animator to a set.</h2>
+<p><img src="./assets/20250303_132551.png" alt="20250303_132551.png"></p>
+<p>this can be used to add animator on same component with defferent properties, or same properties of defferent componnet, event can use to tween color(backgroundColor, textColor)</p>
+<table>
+  <thead>
+      <tr>
+          <th>param</th>
+          <th>type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>component</td>
+          <td>visible component</td>
+          <td>NOT working with ImageSprites or Balls.<!-- raw HTML omitted -->任何可见组件，但不包含图像精灵和球形精灵。</td>
+      </tr>
+      <tr>
+          <td>property</td>
+          <td>string</td>
+          <td>including but not limited to X, Y, TranslationX, TranslationY, ScaleX, ScaleY, RotationX, RotationY, RotationZ, BackgroundColor, TextColor, only if the property value is a number<!-- raw HTML omitted -->可以更改的属性名。</td>
+      </tr>
+      <tr>
+          <td>values</td>
+          <td>list</td>
+          <td>if length is 1, that means from this property&rsquo;s current value to this number. if length &gt;= 2, that means, from 1st number to 2nd, to 3rd <!-- raw HTML omitted -->若列表长度为1，表示从原来的属性值变为这个值。若长度大于2， 表示从第一个值变为第二个值，然后变为第三个&hellip;</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="startpausecancelresumereverse-set">Start/Pause/Cancel/Resume/Reverse set</h2>
+<p>开始、取消、暂停、恢复、反转动画。</p>
+<p><img src="./assets/20250303_132601.png" alt="20250303_132601.png"></p>
+<h2 id="animation-end-event">Animation End event</h2>
+<p>动画完成事件</p>
+<p><img src="./assets/20250303_132607.png" alt="20250303_132607.png"></p>
+<h2 id="screendensity">ScreenDensity</h2>
+<p>屏幕分辨率</p>
+<p><img src="./assets/20250303_132612.png" alt="20250303_132612.png"></p>
+<p>useful when you tween the x/y/translationX/translationY
+在tween位置或者大小时有用。</p>
+<h2 id="properties">Properties</h2>
+<p><img src="./assets/20250303_132621.png" alt="20250303_132621.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>name</th>
+          <th>type</th>
+          <th>desc</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Duration</td>
+          <td>int</td>
+          <td>how long the animation last, in millis, default 500<!-- raw HTML omitted -->动画持续的时间</td>
+      </tr>
+      <tr>
+          <td>Interpolator</td>
+          <td>int</td>
+          <td>animation type. :1.AccelerateDecelerate, 2.Accelerate,3.Decelerate,4.Bounce, 5.Linear, 6.AnticipateOvershoot, 7.Anticipate, 8.Overshoot <!-- raw HTML omitted -->动画的类型，比如加速、减速、匀速等。可以自己试验下。默认是5 匀速</td>
+      </tr>
+      <tr>
+          <td>IsTogether</td>
+          <td>boolean</td>
+          <td>true for play together, false for play one by one. <!-- raw HTML omitted -->如果有多个动画，是否同时播放还是依次播放</td>
+      </tr>
+      <tr>
+          <td>RepeatCount</td>
+          <td>int</td>
+          <td>number to repeat the animation. -1 for infinity<!-- raw HTML omitted -->动画重复次数。-1表示无限重复。默认为0表示不重复</td>
+      </tr>
+      <tr>
+          <td>RepeatMode</td>
+          <td>int</td>
+          <td>1 for restart, 2 for reverse<!-- raw HTML omitted -->重复模式。1-从新开始 2-倒叙播放</td>
+      </tr>
+      <tr>
+          <td>StartDelay</td>
+          <td>int</td>
+          <td>how many millis to delay the animation<!-- raw HTML omitted -->动画延迟多久后才开始。单位毫秒</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="download-link">DOWNLOAD LINK:</h1>
+<p>下载链接
+AIX:
+<a href="./assets/20250303_132642.aix">cn.kevinkun.Tween.v4.aix</a></p>
+<h1 id="demo">Demo</h1>
+<p>示例 侧边栏动画
+<a href="./assets/20250303_132702.aia">sidebar.aia</a>
+其中使用了层叠布局扩展，thanks to @VSATISH13。
+in this demo, <a href="27540">extension Overlap by VSATISH13</a> used .</p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

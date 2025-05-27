@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pdf文件查看扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Pdf文件查看扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>To view the pdf without opening 3th party app</p>
+<h1 id="all-blocks">ALL BLOCKS</h1>
+<h2 id="loadpdf">LoadPDF</h2>
+<p>LoadPDF function will fire PdfLoaded event if success, or OnError event if failed.</p>
+<p><img src="./assets/20250303_122850.png" alt="20250303_122850.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>parameter</th>
+          <th>type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>layou t</td>
+          <td>Arrangement</td>
+          <td>where the pdf file to show</td>
+      </tr>
+      <tr>
+          <td>pdfPath</td>
+          <td>String</td>
+          <td>path of the pdf file. start with // means from assets, start with /sdcard/ means from sdcard, start with no / means from ASD.</td>
+      </tr>
+      <tr>
+          <td>totalPage</td>
+          <td>Number</td>
+          <td>pages of the pdf file</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="preview">Preview</h2>
+<p>This needs to be called after PdfLoaded event. You can preview all pages or only partially.</p>
+<p><img src="./assets/20250303_123003.png" alt="20250303_123003.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>parameter</th>
+          <th>type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>pageRange</td>
+          <td>String</td>
+          <td>page range you want to show, like: <strong>3</strong>, or <strong>1-10</strong>, or <strong>1,3,5</strong>, or <strong>1-5,7-9</strong></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="goto">Goto</h2>
+<p>scroll to page you want to view.</p>
+<p><img src="./assets/20250303_123012.png" alt="20250303_123012.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>parameter</th>
+          <th>type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>page</td>
+          <td>Number</td>
+          <td>page you want to show</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="scrolled">Scrolled</h2>
+<p>fired when the view is scrolled.</p>
+<p><img src="./assets/20250303_123021.png" alt="20250303_123021.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>parameter</th>
+          <th>type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>pageInView</td>
+          <td>Number</td>
+          <td>page now in view</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="onerror">OnError</h2>
+<p><img src="./assets/20250303_123156.png" alt="20250303_123156.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>parameter</th>
+          <th>type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>error</td>
+          <td>String</td>
+          <td>reason of error</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="simple-demo">SIMPLE DEMO</h1>
+<p><img src="./assets/20250303_123211.png" alt="20250303_123211.png"></p>
+<h1 id="faq">FAQ</h1>
+<h3 id="how-to-view-pdf-online-internet">How to view pdf online internet?</h3>
+<p>You need to download the pdf to local (like ASD) first.</p>
+<h1 id="download-link">DOWNLOAD LINK</h1>
+<p><a href="./assets/20250303_123238.aix">cn.kevinkun.PdfViewer.aix</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

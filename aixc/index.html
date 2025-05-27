@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>使用Aixc编译扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>使用Aixc编译扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>App Inventor 2允许我们自己开发扩展组件，但是MIT原生的编译环境搭建相对比较复杂，费时费力。本文介绍一个比较轻便的aix编译器。</p>
+<p><code>本编译器由Zhangzq网友开发，在此对他的辛苦付出表示感谢。</code></p>
+<ol>
+<li>
+<p>下载java jdk，开发扩展<a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">只用jdk1.8</a>就可以了。安装并配置好环境变量，参看<a href="https://blog.csdn.net/qq_38125058/article/details/82890856">这个教程</a>。</p>
+</li>
+<li>
+<p>下载AIX Complier,并解压到电脑。<a href="https://gitee.com/Zhangzqs/AIX-Compiler/releases">下载地址，也是Zhangzq的Gitee仓库</a>, 本例是解压到E盘aixcompiler文件夹下：</p>
+</li>
+</ol>
+<p><img src="./assets/20250303_111900.png" alt="20250303_111900.png"></p>
+<ol start="3">
+<li>双击aixc.bat文件，可以看到aixCompiler的用法如下：</li>
+</ol>
+<p><img src="./assets/20250303_111844.png" alt="20250303_111844.png"></p>
+<ol start="4">
+<li>
+<p><a href="/assets/QRCode.zip">QRCode.zip</a>  这个是我写的一个二维码生成器扩展源代码。解压后它的目录结构是 QRCode是项目名，下面有src，assets，jni，lib等目录。</p>
+<p><img src="./assets/2025-03-11-14-36-09-image.png" alt=""></p>
+<p>src文件夹是存放源码文件，在src内按照包名的顺序再建立文件夹和java文件，结构如图：</p>
+<p><img src="./assets/2025-03-11-14-36-39-image.png" alt=""></p>
+</li>
+</ol>
+<p>其中，KevinkunQRCode.java就是扩展的源码，是个文本文件，可以用很多的文本编辑器打开（比如notepad++, editplus等等，并且保存为utf8格式的文本。切记不要用windows自带的记事本和写字板打开。）。你可以在这个模板基础上修改成你需要的代码。注意包名和目录结构的对应关系。</p>
+<p>如果要引用素材资源，需要把资源放在assets文件夹下，在源码中添加：</p>
+<pre tabindex="0"><code>@UsesAssets(fileNames = &#34;assets1.html,assets2.js&#34;)
+</code></pre><p>如果要导入其他jar包，需要把jar文件放在lib文件夹下，在源码中添加：</p>
+<pre tabindex="0"><code>@UsesLibraries(libraries = &#34;someJarFile.jar&#34;)
+</code></pre><p>如果要引用so包，需要把so文件放在jni文件夹下相应的类别中，并在源码中添加（官方文档是这样写的，但是测试并不成功）：</p>
+<pre tabindex="0"><code>@UsesNativeLibraries(v7aLibraries = &#34;someSoFile.so&#34;)
+</code></pre><ol start="5">
+<li>
+<p>打开命令行窗口（按win+R，运行cmd命令），执行如下命令：</p>
+<pre tabindex="0"><code>E:\aixcompiler\aixc.bat E:\kevinkunaix\QRCode
+</code></pre><p><img src="./assets/20250303_111925.png" alt="20250303_111925.png"></p>
+</li>
+</ol>
+<p>如果不想输入代码或者怕输入错误，可以直接拖动TestAIX文件夹到aixc.bat文件上，等同于执行上述命令。</p>
+<ol start="6">
+<li>
+<p>如果没有错误的话，会显示编译完成及用时。如图：
+<img src="./assets/20250303_111937.png" alt="20250303_111937.png"></p>
+<p>如果看不到倒数第二行的“编译完成，累计用时”这几个字，说明有错误，请仔细查看窗口显示的提示信息，修改源码。</p>
+</li>
+<li>
+<p>编译完成，会在QRCode文件夹下生成一个build文件夹，aix扩展文件会保存在\build\outputs文件夹下。（同时还有个md文件，这个是同步生成的aix说明文件，可以配合gitbook生成html文件。有兴趣的自行研究，这里不作说明）</p>
+</li>
+<li>
+<p>现在可以将aix导入服务器（将aix文件直接拖动到开发服务器的组件设计界面就可以导入），扩展导入后如下图。你可以对照源码，看看这些块是对应的源码中的哪一部分。
+<img src="./assets/20250303_111951.png" alt="20250303_111951.png"></p>
+</li>
+<li>
+<p>记事本编辑源码虽然简便，但是没有代码提示，不能很好的组织文档，建议使用Eclipse或者其他高级的代码编写软件。
+<img src="./assets/20250303_112003.png" alt="20250303_112003.png"></p>
+</li>
+<li>
+<p>多多查看其他的app inventor组件的<a href="https://github.com/mit-cml/appinventor-sources">源码</a>，可以更好的了解如何写aix。</p>
+</li>
+</ol>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

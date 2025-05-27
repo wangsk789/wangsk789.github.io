@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>必应地图扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>必应地图扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>因为有些原因，App Inventer2中的（谷歌）地图在国内不好用。本扩展可以让你在app inventor应用中使用微软必应地图。</p>
+<h2 id="更新记录">更新记录</h2>
+<p>v1 - 20230227</p>
+<ol>
+<li>第一次发布</li>
+</ol>
+<h2 id="所有属性">所有属性</h2>
+<p><img src="./assets/20250303_112510.png" alt="20250303_112510.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Center</td>
+          <td>jsonArray</td>
+          <td>中心坐标 [纬度,经度]</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>EnablePanning</td>
+          <td>逻辑</td>
+          <td>允许平移</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>EnableZooming</td>
+          <td>逻辑</td>
+          <td>允许缩放</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Key</td>
+          <td>文本</td>
+          <td>从必应地图申请的key。到<a href="https://learn.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key">这里</a>申请</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>MapType</td>
+          <td>文本</td>
+          <td>地图类型</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>MaxZoom</td>
+          <td>数字</td>
+          <td>最大允许缩放等级</td>
+          <td>1-19</td>
+      </tr>
+      <tr>
+          <td>MinZoom</td>
+          <td>数字</td>
+          <td>最小允许缩放等级</td>
+          <td>1-19</td>
+      </tr>
+      <tr>
+          <td>ShowLocateMeButton</td>
+          <td>逻辑</td>
+          <td>是否显示‘我的位置’按钮</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>ShowMapTypeSelector</td>
+          <td>逻辑</td>
+          <td>是否显示地图类型选择器</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>ShowScalebar</td>
+          <td>逻辑</td>
+          <td>是否显示比例尺</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>ShowZoomButtons</td>
+          <td>逻辑</td>
+          <td>是否显示缩放按钮</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Zoom</td>
+          <td>数字</td>
+          <td>初始缩放等级</td>
+          <td>1-19</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="相关代码块">相关代码块</h2>
+<h3 id="地图初始化">地图初始化</h3>
+<p>将地图载入到垂直（或者水平）布局中。初始化之前，在设计窗口设置好所有初始参数。</p>
+<p>导入后效果如图：</p>
+<p><img src="./assets/20250303_112559.png" alt="20250303_112559.png"></p>
+<p>在地图被点击时，会触发MapClicked事件。</p>
+<p><img src="./assets/20250303_112616.png" alt="20250303_112616.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>location</td>
+          <td>列表</td>
+          <td>点击位置坐标</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="平移地图和缩放地图">平移地图和缩放地图</h3>
+<p><img src="./assets/20250303_112633.png" alt="20250303_112633.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>center</td>
+          <td>列表</td>
+          <td>地图中心位置坐标</td>
+      </tr>
+      <tr>
+          <td>zoom</td>
+          <td>数字 （1-19）</td>
+          <td>缩放级别</td>
+      </tr>
+  </tbody>
+</table>
+<p>在地图被平移或者缩放时，会触发MapViewChanged事件</p>
+<p><img src="./assets/20250303_112702.png" alt="20250303_112702.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>location</td>
+          <td>列表</td>
+          <td>点击位置坐标</td>
+      </tr>
+      <tr>
+          <td>center</td>
+          <td>列表</td>
+          <td>视图中心坐标</td>
+      </tr>
+      <tr>
+          <td>bounds</td>
+          <td>列表</td>
+          <td>视图左上坐标和右下坐标</td>
+      </tr>
+      <tr>
+          <td>zoom</td>
+          <td>数字</td>
+          <td>当前缩放级别</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="图钉按钮">图钉按钮</h2>
+<p><img src="./assets/20250303_112718.png" alt="20250303_112718.png"></p>
+<p><img src="./assets/20250303_112731.png" alt="20250303_112731.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>id</td>
+          <td>文本</td>
+          <td>每个图钉的id</td>
+      </tr>
+      <tr>
+          <td>location</td>
+          <td>列表</td>
+          <td>图钉位置</td>
+      </tr>
+      <tr>
+          <td>options</td>
+          <td>字典</td>
+          <td>图钉属性设置</td>
+      </tr>
+      <tr>
+          <td>&ndash;title</td>
+          <td>文本</td>
+          <td>主文本</td>
+      </tr>
+      <tr>
+          <td>&ndash;subTitle</td>
+          <td>文本</td>
+          <td>副文本</td>
+      </tr>
+      <tr>
+          <td>&ndash;text</td>
+          <td>文本</td>
+          <td>显示在图钉上</td>
+      </tr>
+      <tr>
+          <td>&ndash;color</td>
+          <td>文本</td>
+          <td>图钉颜色</td>
+      </tr>
+      <tr>
+          <td>&ndash;draggable</td>
+          <td>逻辑</td>
+          <td>是否可以拖动</td>
+      </tr>
+      <tr>
+          <td>&ndash;icon</td>
+          <td>文本</td>
+          <td>图标文件，可以是base64</td>
+      </tr>
+  </tbody>
+</table>
+<p>options都是可选的，甚至可以是空字典。</p>
+<p>图钉按钮可能引发被点击事件和被拖动事件</p>
+<p><img src="./assets/20250303_112749.png" alt="20250303_112749.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>id</td>
+          <td>文本</td>
+          <td>图钉id</td>
+      </tr>
+      <tr>
+          <td>location</td>
+          <td>列表</td>
+          <td>图钉坐标 [纬度,经度]</td>
+      </tr>
+      <tr>
+          <td>point</td>
+          <td>列表</td>
+          <td>图钉坐标 [屏幕x，屏幕Y]</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="线段">线段</h3>
+<p><img src="./assets/20250303_112803.png" alt="20250303_112803.png"></p>
+<p><img src="./assets/20250303_112828.png" alt="20250303_112828.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>id</td>
+          <td>文本</td>
+          <td>线段的id</td>
+      </tr>
+      <tr>
+          <td>locations</td>
+          <td>列表</td>
+          <td>线段顶点坐标的列表，长度最小为2</td>
+      </tr>
+      <tr>
+          <td>options</td>
+          <td>字典</td>
+          <td>线段属性设置</td>
+      </tr>
+      <tr>
+          <td>&ndash;strokeColor</td>
+          <td>文本</td>
+          <td>线段颜色</td>
+      </tr>
+      <tr>
+          <td>&ndash;strokeThickness</td>
+          <td>数字</td>
+          <td>线宽</td>
+      </tr>
+      <tr>
+          <td>&ndash;strokeDashArray</td>
+          <td>列表</td>
+          <td>虚实线画法 [实线，虚线，实线，虚线,&hellip;]</td>
+      </tr>
+  </tbody>
+</table>
+<p>线段被点击会引发点击事件</p>
+<p><img src="./assets/20250303_112846.png" alt="20250303_112846.png"></p>
+<p>参数意义同图钉按钮。</p>
+<h3 id="多边形">多边形</h3>
+<p><img src="./assets/20250303_112900.png" alt="20250303_112900.png"></p>
+<p><img src="./assets/20250303_112913.png" alt="20250303_112913.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>id</td>
+          <td>文本</td>
+          <td>多边形的id</td>
+      </tr>
+      <tr>
+          <td>locations</td>
+          <td>列表</td>
+          <td>多边形顶点坐标的列表，长度最小为3</td>
+      </tr>
+      <tr>
+          <td>options</td>
+          <td>字典</td>
+          <td>多边形属性设置</td>
+      </tr>
+      <tr>
+          <td>&ndash;fillColor</td>
+          <td>文本</td>
+          <td>填充色</td>
+      </tr>
+      <tr>
+          <td>&ndash;strokeColor</td>
+          <td>文本</td>
+          <td>边线颜色</td>
+      </tr>
+      <tr>
+          <td>&ndash;strokeThickness</td>
+          <td>数字</td>
+          <td>边线线宽</td>
+      </tr>
+      <tr>
+          <td>&ndash;strokeDashArray</td>
+          <td>列表</td>
+          <td>虚实线画法 [实线，虚线，实线，虚线,&hellip;]</td>
+      </tr>
+  </tbody>
+</table>
+<p>多边形点击会引发点击事件：</p>
+<p><img src="./assets/20250303_112929.png" alt="20250303_112929.png"></p>
+<p>参数意义同线段</p>
+<h3 id="规则多边形">规则多边形</h3>
+<p><img src="./assets/20250303_112948.png" alt="20250303_112948.png"></p>
+<p><img src="./assets/20250303_113000.png" alt="20250303_113000.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>id</td>
+          <td>文本</td>
+          <td>多边形的id</td>
+      </tr>
+      <tr>
+          <td>center</td>
+          <td>列表</td>
+          <td>外切圆的中心坐标</td>
+      </tr>
+      <tr>
+          <td>radius</td>
+          <td>数字</td>
+          <td>外切圆的半径，单位km</td>
+      </tr>
+      <tr>
+          <td>sides</td>
+          <td>整数</td>
+          <td>边数</td>
+      </tr>
+      <tr>
+          <td>angle</td>
+          <td>整数</td>
+          <td>旋转度数</td>
+      </tr>
+      <tr>
+          <td>options</td>
+          <td>字典</td>
+          <td>同多边形</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>点击会引发多边形点击事件（同上）</p>
+<h3 id="删除形状">删除形状</h3>
+<p><img src="./assets/20250303_113016.png" alt="20250303_113016.png"></p>
+<p>根据id删除图钉、线段、多边形，或者全部删除。</p>
+<h3 id="信息窗">信息窗</h3>
+<p><img src="./assets/20250303_113258.png" alt="20250303_113258.png"></p>
+<p><img src="./assets/20250303_113314.png" alt="20250303_113314.png"></p>
+<p>ShowInfobox: 显示信息窗口</p>
+<p>HideInfobox: 隐藏信息窗口</p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>类型</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>location</td>
+          <td>列表</td>
+          <td>坐标</td>
+      </tr>
+      <tr>
+          <td>title</td>
+          <td>文本</td>
+          <td>信息窗标题</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td>文本</td>
+          <td>信息窗主要文本 （可以是html文本）</td>
+      </tr>
+      <tr>
+          <td>actions</td>
+          <td>列表</td>
+          <td>按钮文本列表。可以是空列表</td>
+      </tr>
+  </tbody>
+</table>
+<p>点击按钮文本会引发点击事件：</p>
+<p><img src="./assets/20250303_113417.png" alt="20250303_113417.png"></p>
+<h3 id="路线规划">路线规划</h3>
+<p><img src="./assets/20250303_113435.png" alt="20250303_113435.png"></p>
+<p><img src="./assets/20250303_113508.png" alt="20250303_113508.png"></p>
+<p>CalculateRoute: 计算路线。计算成功会在地图上绘制路线，并引发RouteUpdated事件。</p>
+<p>RemoveRoute：从地图上清除路线</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>locations</td>
+          <td>列表</td>
+          <td>坐标列表，长度至少为2，中间的坐标是途经点位置</td>
+      </tr>
+      <tr>
+          <td>mode</td>
+          <td>文本</td>
+          <td>行进方式：driving（开车）, transit（公共交通）,truck（货车）,walking（步行）</td>
+      </tr>
+      <tr>
+          <td>total</td>
+          <td>数字</td>
+          <td>查找到的路线数量</td>
+      </tr>
+      <tr>
+          <td>index</td>
+          <td>数字</td>
+          <td>当前选中路线序号</td>
+      </tr>
+      <tr>
+          <td>route</td>
+          <td>json型文本</td>
+          <td>线路详情。原始数据，里面包含线路上的点坐标，行进文本指示等。需要用字典自己解析。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="位置和坐标转换">位置和坐标转换</h3>
+<p><img src="./assets/20250303_113530.png" alt="20250303_113530.png"></p>
+<p>GetAddressFrom: 坐标 [纬度，经度] 转为地址。</p>
+<p>GetLocationsFrom: 地址转为坐标。（可能会返回多个坐标）</p>
+<p><img src="./assets/20250303_113554.png" alt="20250303_113554.png"></p>
+<h3 id="计算距离">计算距离</h3>
+<p><img src="./assets/20250303_113606.png" alt="20250303_113606.png"></p>
+<p>计算两点之间的距离。</p>
+<h2 id="常见问题">常见问题</h2>
+<ol>
+<li>
+<p>如何知道地图加载完成？</p>
+<p>可以使用MapViewChanged事件。他第一次被调用时，作为加载完成事件。</p>
+</li>
+<li>
+<p>如何画圆？</p>
+<p>使用CreatePolygonRegular方法，适当增加边数，可以得到一个近似圆。</p>
+</li>
+</ol>
+<h2 id="下载连接">下载连接：</h2>
+<p><a href="./assets/cn.kevinkun.BingMap.aix">cn.kevinkun.BingMap-v1.aix</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

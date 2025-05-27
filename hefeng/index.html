@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>获取和风天气 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>获取和风天气</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>应用与外界交互，使用api接口是最常见的。现在利用wxbit解释下如何获取和风天气的天气预报api。</p>
+<h1 id="准备工作">准备工作</h1>
+<ol>
+<li>和风天气网站(<a href="https://www.heweather.com">https://www.heweather.com</a>)注册账号。</li>
+<li>进入控制台，应用管理，新建应用。（貌似免费用户只能建一个免费账号。）</li>
+<li>记住应用的key。</li>
+</ol>
+<h1 id="组件设计">组件设计</h1>
+<p>组件设计界面，拖入3个可视组件：文本输入框、按钮、标签，1个非可视组件：http客户端。（这个是wxbit服务器新改名的组件，赞一个。原名叫web服务器，翻译的有些不知所云）</p>
+<p>这里就不放组件设计图了，太简单了。主要是介绍原理，如何美化应用不在这里讨论。</p>
+<h1 id="逻辑设计">逻辑设计</h1>
+<p>要使用api接口，就必须要看api接口文档。重要的事说3遍，<strong>看文档~~</strong> <strong>看文档~~</strong> <strong>看文档~~</strong></p>
+<p>我们打开这个文档（<a href="https://dev.heweather.com/docs/api/weather">https://dev.heweather.com/docs/api/weather</a>），有几个关键的点要看到：</p>
+<ol>
+<li>
+<p>获取方式：GET 方式</p>
+</li>
+<li>
+<p>数据格式： JSON，这里是说返回的数据是JSON格式，就是键值对格式。</p>
+</li>
+<li>
+<p>免费版的请求URL: <code>https://free-api.heweather.net/s6/weather/{weather-type}?{parameters}</code> 花括号中的东西就是我们要按我们的要求替换的，连带花括号也要换掉。</p>
+</li>
+<li>
+<p>weather-type参数，我们这里选forecast， 就是获取未来3天的数据</p>
+</li>
+<li>
+<p>parameters参数，就是我们要告诉接口的请求参数，这里有location就是城市名称，中文或者拼音都可以，key就是准备工作中记下的key。</p>
+</li>
+</ol>
+<p>我们现在开始来获取这个api，看看有什么返回值：</p>
+<ol>
+<li>
+<p>初始化一个变量，记录key
+<img src="./assets/20250303_121009.png" alt="20250303_121009.png"></p>
+</li>
+<li>
+<p>构造请求URL
+<img src="./assets/20250303_121026.png" alt="20250303_121026.png"></p>
+<p>特别注意的就是url网址中的forecast后面有个<code>?</code>， key前面有个<code>&amp;</code>。</p>
+<p>？用来分割主url和后面的参数，&amp;是用来分割多个参数。而每个参数都是形如<code>参数名=参数值</code>这样的。</p>
+<p>设置好网址，就可以执行GET请求（还记得上面说的获取方式是GET吧）。</p>
+</li>
+<li>
+<p>因为关系到网络的传输，速度不确定，所以get请求这个动作，有个异步的<code>HTTP客户端.获得文本</code>这个事件，我们就用它来接受返回的结果,并显示在调试窗口。
+<img src="./assets/20250303_121045.png" alt="20250303_121045.png"></p>
+</li>
+</ol>
+<p>现在就可以连接手机，在文本框中填入城市名称，运行app看看返回值如何。（尽管文档中明确说参数如果是中文的，需要进行url编码，但是这里我们直接输入中文城市名，貌似也可以）</p>
+<p>在设计界面右侧的调试信息窗口，显示如图：
+<img src="./assets/20250303_121118.png" alt="20250303_121118.png"></p>
+<p>哇~~什么鬼？密密麻麻的。其实这就是返回的json字符串了。</p>
+<p>如果你的显示跟我的相差很多，比如像这样很短的：<code>{&quot;HeWeather6&quot;:[{&quot;status&quot;:&quot;invalid param&quot;}]}</code>， 说明你的参数设置有误，请检查key是不是有错误，url是不是拼接错误，也有可能是你的每月免费额度用完了。这里是具体的状态码的意义（https://dev.heweather.com/docs/refer/status-code）。</p>
+<h1 id="解析返回值">解析返回值</h1>
+<p>这里推荐一个网站，<a href="http://www.bejson.com/">http://www.bejson.com/</a> 这个网站可以将json字串格式化，方便我们看清层级关系。</p>
+<p>将调试窗口的信息复制（那个时间戳不要复制），在这个网站进行格式化。</p>
+<p>格式化后的json字符串格式如下(数据太长了，后面省略一部分)：</p>
+<pre tabindex="0"><code>{
+    &#34;HeWeather6&#34;: [{
+        &#34;basic&#34;: {
+            &#34;cid&#34;: &#34;CN101010100&#34;,
+            &#34;location&#34;: &#34;北京&#34;,
+            &#34;parent_city&#34;: &#34;北京&#34;,
+            &#34;admin_area&#34;: &#34;北京&#34;,
+            &#34;cnty&#34;: &#34;中国&#34;,
+            &#34;lat&#34;: &#34;39.90498734&#34;,
+            &#34;lon&#34;: &#34;116.4052887&#34;,
+            &#34;tz&#34;: &#34;+8.00&#34;
+        },
+        &#34;update&#34;: {
+            &#34;loc&#34;: &#34;2019-05-25 14:58&#34;,
+            &#34;utc&#34;: &#34;2019-05-25 06:58&#34;
+        },
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;daily_forecast&#34;: [{
+            &#34;cond_code_d&#34;: &#34;101&#34;,
+            &#34;cond_code_n&#34;: &#34;302&#34;,
+            &#34;cond_txt_d&#34;: &#34;多云&#34;,
+            &#34;cond_txt_n&#34;: &#34;雷阵雨&#34;,
+            &#34;date&#34;: &#34;2019-05-25&#34;,
+            &#34;hum&#34;: &#34;64&#34;,
+            &#34;mr&#34;: &#34;00:12&#34;,
+            &#34;ms&#34;: &#34;10:17&#34;,
+            &#34;pcpn&#34;: &#34;0.0&#34;,
+            &#34;pop&#34;: &#34;0&#34;,
+            &#34;pres&#34;: &#34;998&#34;,
+            &#34;sr&#34;: &#34;04:51&#34;,
+            &#34;ss&#34;: &#34;19:32&#34;,
+            &#34;tmp_max&#34;: &#34;35&#34;,
+            &#34;tmp_min&#34;: &#34;22&#34;,
+            &#34;uv_index&#34;: &#34;6&#34;,
+            &#34;vis&#34;: &#34;13&#34;,
+            &#34;wind_deg&#34;: &#34;185&#34;,
+            &#34;wind_dir&#34;: &#34;南风&#34;,
+            &#34;wind_sc&#34;: &#34;3-4&#34;,
+            &#34;wind_spd&#34;: &#34;15&#34;
+        }, {
+            ...
+        }, {
+            ...
+        }]
+    }]
+}
+</code></pre><p>json字串看起来复杂，其实只要记住2条就可以了</p>
+<ol>
+<li>
+<p>碰到<code>{</code> 左侧花括号的，就用<code>在键值列表...中查找...</code> 提取
+<img src="./assets/20250303_121140.png" alt="20250303_121140.png"></p>
+</li>
+<li>
+<p>碰到 <code>[</code> 左侧方括号，就用<code>选择列表...第...项</code> 提取
+<img src="./assets/20250303_121156.png" alt="20250303_121156.png"></p>
+</li>
+</ol>
+<p>看上面的json字串，最外面是<code>HeWeather6</code>, 下面是个方括号，再里面是 4个平级的键<code>basic</code>，<code>update</code>，<code>status</code>，<code>daily_forecast</code>。</p>
+<p>我们关心的是后面两个。如果<code>status</code>是ok，说明没有出错，才能提取<code>daily_forecast</code>。</p>
+<p>接下来，我们从上到下，从外到内的一层层提取第一天的最低气温和最高气温。 <br>
+<img src="./assets/20250303_121156.png" alt="20250303_121156.png"></p>
+<ol>
+<li>把返回的json字串解码为键值对列表。</li>
+<li>获取<code>HeWeather6</code> 的值，注意<code>HeWeather6</code> 前是花括号， 用<code>在键值列表...中查找...</code> 提取</li>
+<li>注意<code>HeWeather6</code>的值是个方括号，要用<code>选择列表...第...项</code>提取</li>
+<li>判断返回的数据是不是我们想要的</li>
+<li>如果返回的格式正确，就提取3天的天气预报数据</li>
+<li>注意这里<code>daily_forecast</code>后面又是个方括号，第一项就是第一天你的数据，第二项就是第二天的数据啦。</li>
+<li>现在就可以直接提取最低温和最高温了。</li>
+</ol>
+<p>这里可以多初始化几个变量，分别记录第二天、第三天的数据。</p>
+<p>有了这些数据，你就可以构造你的天气app啦</p>
+<hr>
+<h2 id="更新">更新</h2>
+<p>20190525</p>
+<p>我们可以自定义一个过程，更加方便的解析json字串：
+<img src="./assets/20250303_121219.png" alt="20250303_121219.png"></p>
+<ul>
+<li>
+<p>listInPairs 键值对列表</p>
+</li>
+<li>
+<p>keyPath 要提取的键的路径，键名或索引值用半角逗号隔开</p>
+<p>像上面的json字串，我们要提取第3天的最高气温的值，</p>
+<p>最外层是HeWeather6, 然后是方括号要提取第一个，keyPath就是<code>HeWeather6,1</code></p>
+<p>再提取daily_forecast下的第3项，keyPath就是<code>HeWeather6,1,daily_forecast,3</code></p>
+<p>在往下就可以提取tmp_max的值，keyPath就是<code>HeWeather6,1,daily_forecast,3,tmp_max</code></p>
+<p>可以这样组织代码：
+<img src="./assets/20250303_121239.png" alt="20250303_121239.png"></p>
+</li>
+</ul>
+<h2 id="更新-1">更新</h2>
+<p>20200319</p>
+<p>wxibt已经更新增加了字典组件，有了以下两个改进：</p>
+<ol>
+<li>
+<p>上面的keypath概念，就不用自己写自定义函数（原来的过程，现在改名叫函数）了</p>
+</li>
+<li>
+<p>解析json字串不用<strong>http客户端.解析json</strong>文本了，可以使用字典内置的<strong>json转字典</strong></p>
+<p>现在，提取第3天的最高气温的值，可以这样写
+<img src="./assets/20250303_121246.png" alt="20250303_121246.png"></p>
+</li>
+</ol>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

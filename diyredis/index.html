@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>自建Redis后台服务器 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>自建Redis后台服务器</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>利用宝塔设置redis，将其作为云数据库的后台数据库。</p>
+<h1 id="具体步骤如下">具体步骤如下：</h1>
+<ol>
+<li>
+<p>购买腾讯云 轻量应用服务器 (其他服务器没有测试过，应该差不多)</p>
+</li>
+<li>
+<p>记得镜像那里要选择宝塔linux面板登录服务器（没有这个镜像的，请安装linux后自行安装宝塔）</p>
+</li>
+<li>
+<p>登录服务器</p>
+</li>
+<li>
+<p>进入应用管理</p>
+</li>
+<li>
+<p>应用内软件信息 那里，点登录</p>
+</li>
+<li>
+<p>输入登录按钮前面的那段代码并回车</p>
+</li>
+<li>
+<p>复制保存出现的文本（其中有网址和密码）</p>
+</li>
+<li>
+<p>进入防火墙界面，添加规则，开放8888端口。注意不是设置防火墙模板。</p>
+</li>
+<li>
+<p>浏览器中输入刚才的网址和密码，进入宝塔</p>
+</li>
+<li>
+<p>安装LNMP</p>
+</li>
+<li>
+<p>软件商店安装redis</p>
+</li>
+<li>
+<p>打开redis设置</p>
+</li>
+<li>
+<p>进入性能调整 bind设为0.0.0.0，port修改一个其他的端口，默认6379容易被攻击，requirepass设置一个密码，保存设置</p>
+</li>
+<li>
+<p>进入设置持久化，appendonly设为开启，appendfaync设为everysec，保存设置</p>
+</li>
+<li>
+<p>进入服务，重启下服务</p>
+</li>
+<li>
+<p>进入宝塔的安全页面，启用防火墙，放行端口6379</p>
+</li>
+<li>
+<p>进入腾讯云服务器的防火墙界面，添加规则，开放6379端口</p>
+</li>
+<li>
+<p>AppInventor组件设计界面添加redis组件（云数据库），redisport为6379（或你修改的端口），redisServer输入你的云服务器ip地址，注意前后不要有http等其他字母，就只要数字和点，token是密码，useSSL不要选中</p>
+</li>
+</ol>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

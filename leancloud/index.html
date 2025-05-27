@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LeanCloud扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>LeanCloud扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>用LeanCloud作为后台，进行数据存储、用户管理、实时通讯等功能</p>
+<p>更少的代码，做更多的事。。。</p>
+<h1 id="简介">简介</h1>
+<p>包含6个部分，分别是</p>
+<table>
+  <thead>
+      <tr>
+          <th>组件名</th>
+          <th>中文</th>
+          <th>具体描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>LeanStorage</td>
+          <td>数据存储</td>
+          <td>添加、查询、更新、删除 （本组件已经<a href="leanstorage.html">单独免费发布</a>）</td>
+      </tr>
+      <tr>
+          <td>LeanUser</td>
+          <td>用户管理</td>
+          <td>用户注册、登录、修改密码、重置密码等</td>
+      </tr>
+      <tr>
+          <td>LeanLeaderBoard</td>
+          <td>排行榜功能</td>
+          <td>添加成绩、获取成绩、获取前10，获取我前后成绩等</td>
+      </tr>
+      <tr>
+          <td>LeanFile</td>
+          <td>上传文件</td>
+          <td>上传文件</td>
+      </tr>
+      <tr>
+          <td>LeanCaptcha</td>
+          <td>图形验证码</td>
+          <td>获取和验证图形验证码</td>
+      </tr>
+      <tr>
+          <td>LeanMessage</td>
+          <td>实时聊天</td>
+          <td>发送文消息、接受消息，获取历史消息。不只是聊天</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="准备工作">准备工作</h1>
+<ol>
+<li>注册LeanCloud账号，网址是 <a href="https://www.leancloud.cn">https://www.leancloud.cn</a>；</li>
+<li>可能需要实名认证；</li>
+<li>进入控制台，新建应用（相当于关系型数据库中的数据库）。；</li>
+<li>进入应用，点设置，点应用Keys，将右侧的Appid，AppKey，Rest Api服务器地址记下，初始化时用到；</li>
+</ol>
+<h1 id="代码示例">代码示例</h1>
+<h2 id="leanuser-用户管理">LeanUser 用户管理</h2>
+<p><img src="./assets/20250303_121535.png" alt="20250303_121535.png"></p>
+<h2 id="leanleaderboard-排行榜">LeanLeaderBoard 排行榜</h2>
+<p>需要配合LeanUser先注册用户，需要事先创建排行榜：</p>
+<p>进入LeanCloud控制台，进入应用，点左边游戏，点排行榜下的数据，新建排行榜。按你的要求输入相关参数，完成创建。</p>
+<p>排行榜参数：</p>
+<p>1.名称，不解释</p>
+<p>2.排序，你的排行榜按升序ascending还是 降序descending排列</p>
+<p>3.更新策略，better（提交多次成绩只记录最好的），last（多次记录只记录最后提交的），sum（所有提交的记录相加。）</p>
+<p>4.自动重置频率，每个相应的时间，排行榜就重置。可以设为从不重置。
+<img src="./assets/20250303_121601.png" alt="20250303_121601.png"></p>
+<h2 id="leanfile-文件上传">LeanFile 文件上传</h2>
+<p>仅支持Leancloud华北节点，限制10m以下文件。
+<img src="./assets/20250303_121617.png" alt="20250303_121617.png"></p>
+<h2 id="leanmessage-实时通讯">LeanMessage 实时通讯</h2>
+<p>这个初始化，不能直接在屏幕初始化中进行，需要延时一段时间比如500毫秒。</p>
+<p>需要配合LeanUser先注册用户。
+<img src="./assets/20250303_121626.png" alt="20250303_121626.png"></p>
+<h2 id="leancaptcha-验证码">LeanCaptcha 验证码</h2>
+<p><img src="./assets/20250303_121641.png" alt="20250303_121641.png"></p>
+<h1 id="购买链接">购买链接</h1>
+<p>付费，需要的请直接<a href="mailto:wangsk789@qq.com">qq或邮箱</a>联系站长</p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

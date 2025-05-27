@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>读取excel文件 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>读取excel文件</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>首先读取excel文件的base64文本，在网页浏览器中借助sheetjs，将base64转为内容文本。支持xls文件和xlsx文件。</p>
+<h2 id="准备工作">准备工作</h2>
+<ol>
+<li>
+<p>下载xlsx.full.min.js, <a href="https://docs.sheetjs.com/docs/">相关文档在这里</a></p>
+</li>
+<li>
+<p>构造转换函数,保存为sheetReader.html。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-HTML" data-lang="HTML"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">title</span>&gt;sheetjs&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xlsx.full.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">base64str</span>,<span style="color:#a6e22e">sheetIndex</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">basestr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64str</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#a6e22e">base64str</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;,&#39;</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wb</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">XLSX</span>.<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">basestr</span>,{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;base64&#39;</span>});
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">csv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">XLSX</span>.<span style="color:#a6e22e">utils</span>.<span style="color:#a6e22e">sheet_to_csv</span>(<span style="color:#a6e22e">wb</span>.<span style="color:#a6e22e">Sheets</span>[<span style="color:#a6e22e">wb</span>.<span style="color:#a6e22e">SheetNames</span>[<span style="color:#a6e22e">sheetIndex</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]]);
+</span></span><span style="display:flex;"><span>                    window.<span style="color:#a6e22e">AppInventor</span>.<span style="color:#a6e22e">setWebViewString</span>(<span style="color:#a6e22e">csv</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>将以上两个文件和你的xls文件上传到素材。要读取的文件不是必须是素材，可以放在ASD中或者其他有读取权限的地方都可以。本示例是读取ASD.
+<img src="./assets/20250303_111124.png" alt="20250303_111124.png"></p>
+</li>
+<li>
+<p>我们还需要一个<a href="https://community.appinventor.mit.edu/t/save-image-sound-clip-video-canvas-in-tinydb-extension-base-64-download-file-from-the-web-and-convert-it-to-string/40425">Base64扩展</a>，可以把xls文件转为base64.</p>
+</li>
+<li>
+<p>相关代码
+<img src="./assets/20250303_111139.png" alt="20250303_111139.png"></p>
+</li>
+</ol>
+<ul>
+<li>
+<p>首先让网页浏览器访问转换的网页</p>
+</li>
+<li>
+<p>FileToStringDirect方法可以把文件转为base64文本</p>
+</li>
+<li>
+<p>将base64文本用read函数读取出来。read函数需要两个参数，一个是base64文本，二是工作表在工作簿中的序号。示例中是第一个工作表。</p>
+</li>
+<li>
+<p>在网页交换字符串改变事件接收读取的xls内容，应该是个csv表</p>
+</li>
+</ul>
+<ol start="6">
+<li>运行结果如图：
+<img src="./assets/20250303_111153.png" alt="20250303_111153.png"></li>
+</ol>
+<h2 id="示例文件">示例文件</h2>
+<p><a href="./assets/20250303_120437.aia">demo.aia</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

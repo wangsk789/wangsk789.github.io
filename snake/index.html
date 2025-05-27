@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>贪吃蛇 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>贪吃蛇</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>贪吃蛇是一款非常经典的手机游戏，相信每个人都玩过这个游戏。下面我们利用APP INVENTOR 2来制作一款自己的贪吃蛇。</p>
+<h2 id="游戏运行界面">游戏运行界面：</h2>
+<p><img src="./assets/20250303_124210.png" alt="20250303_124210.png"></p>
+<h2 id="界面设计">界面设计</h2>
+<p>界面设计比较简单，根据上图布局添加组件</p>
+<p>组件及属性（其他属性都默认就可以）：</p>
+<table>
+  <thead>
+      <tr>
+          <th>名称1</th>
+          <th>名称2</th>
+          <th>宽度</th>
+          <th>高度</th>
+          <th>窗口大小</th>
+          <th>水平对齐</th>
+          <th>间隔</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>画布1</td>
+          <td></td>
+          <td>320</td>
+          <td>320</td>
+          <td>固定大小</td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>水平布局1</td>
+          <td></td>
+          <td>充满</td>
+          <td>充满</td>
+          <td></td>
+          <td>居中</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>上按钮</td>
+          <td>30%</td>
+          <td>充满</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>水平布局2</td>
+          <td></td>
+          <td>充满</td>
+          <td>充满</td>
+          <td></td>
+          <td>居中</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>左按钮</td>
+          <td>30%</td>
+          <td>充满</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>开始按钮</td>
+          <td>30%</td>
+          <td>充满</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>右按钮</td>
+          <td>30%</td>
+          <td>充满</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>水平布局3</td>
+          <td></td>
+          <td>充满</td>
+          <td>充满</td>
+          <td></td>
+          <td>居中</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>下按钮</td>
+          <td>30%</td>
+          <td>充满</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>计时器</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>500</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="游戏代码">游戏代码：</h2>
+<h2 id="几个自定义过程">几个自定义过程：</h2>
+<p>将画布分成20*20的小格子（上图中粗线方框区域），每个格子高16宽16。给每个格子编号。在显示区域之外也加上一层并编号，是为了更加方便的判断蛇头是否出界。行号（列号）从0开始到21结束。
+<img src="./assets/20250303_124409.png" alt="20250303_124409.png"></p>
+<p>根据编号求所在行或者列，根据行和列求出所在位置编号。
+<img src="./assets/20250303_124427.png" alt="20250303_124427.png"></p>
+<h2 id="几个全局变量">几个全局变量：</h2>
+<p>蛇身位置：记录当前状态下所有身体占据的格子位置。游戏开始时，蛇身位置列表（从蛇头到蛇尾的顺序）设为（250,249,248）</p>
+<p>当前方向：取值为1到4。 1代表向右，2是向上，3是向左，4是向下。</p>
+<p>偏移列表：分别是蛇头向右、向上、向左、向下时，新位置编号相对当前位置编号的变化。
+<img src="./assets/20250303_124439.png" alt="20250303_124439.png"></p>
+<h2 id="显示蛇身">显示蛇身</h2>
+<p>我们利用画布的画线方法，根据所在的位置编号来画出一个方框，并给他不同的颜色。灰色是蛇身，黑色是蛇头，红色是鸡蛋。
+<img src="./assets/20250303_124502.png" alt="20250303_124502.png"></p>
+<p>线宽设为14，x1和x2分别减去15和1，是为了每个方框中间空出2个单位。
+<img src="./assets/20250303_124520.png" alt="20250303_124520.png"></p>
+<p><img src="./assets/20250303_124532.png" alt="20250303_124532.png"></p>
+<p>点击开始按钮，运行后的画出的效果如图：
+<img src="./assets/20250303_124638.png" alt="20250303_124638.png"></p>
+<h2 id="让蛇身动起来">让蛇身动起来</h2>
+<p>我们以向右移动方向为例。当前蛇身位置（250,249,248），250是蛇头位置，若向右移动，就把右边的251加入列表第一项的位置，同时把尾巴的位置248从列表中删除，这样蛇身位置就变成了（251,250,249），再移动一格，就变成了（252,251,250）.
+这样，每次移动，就是把蛇身位置列表的最后一个删除，在列表第一位置插入一个新的编号。这个新的编号是根据当前的方向决定的。
+<img src="./assets/20250303_124725.png" alt="20250303_124725.png"></p>
+<p>蛇头新位置：根据当前方向，求出蛇头的偏移量，加上当前的位置，就是新位置。
+<img src="./assets/20250303_124933.png" alt="20250303_124933.png"></p>
+<p><img src="./assets/20250303_124958.png" alt="20250303_124958.png"></p>
+<p>每次计时器计时，把画布清空，重新计算蛇身位置，并根据新位置画出蛇身。 当然，现在蛇只能向右移动，且可以穿越边界。下面加上修改方向的代码</p>
+<h2 id="改变方向">改变方向</h2>
+<p>因为蛇不允许原地180度转向，我们加一个判断，如果方向是4（向下），那么按向上的按钮就没有变化。只有在不等于4的时候，向上按钮才起作用。其他方向同理。
+<img src="./assets/20250303_125024.png" alt="20250303_125024.png"></p>
+<h2 id="禁止穿越边界">禁止穿越边界</h2>
+<p>只要判断蛇头位置是否出界就可以了。如果蛇头的所在行或者列等于0或者21，就说明出界了（参考上面的编号图）。
+<img src="./assets/20250303_125043.png" alt="20250303_125043.png">
+<img src="./assets/20250303_125103.png" alt="20250303_125103.png">
+<img src="./assets/20250303_125133.png" alt="20250303_125133.png"></p>
+<p>我们在计时器的计时事件中加上一个判断，如果出界，就停止计时，并给出提示。</p>
+<h2 id="显示鸡蛋">显示鸡蛋。</h2>
+<p><img src="./assets/20250303_125156.png" alt="20250303_125156.png">
+<img src="./assets/20250303_125216.png" alt="20250303_125216.png">
+<img src="./assets/20250303_125237.png" alt="20250303_125237.png"></p>
+<h2 id="吃到鸡蛋">吃到鸡蛋</h2>
+<p>将移动蛇身的过程修改一下，加上判断语句。如果蛇头的新位置等于鸡蛋位置,就是吃到鸡蛋了，就把鸡蛋重新移动一个位置，并且不要删除蛇尾的位置，就相当于把鸡蛋的位置加到了原来蛇尾的位置了。如果没有碰到鸡蛋，就要把蛇尾删掉。
+<img src="./assets/20250303_125303.png" alt="20250303_125303.png"></p>
+<h2 id="碰到自己">碰到自己</h2>
+<p>现在基本的功能都实现了，就差一个检测是否碰到自己身体了。
+继续修改 移动蛇身 过程。如果蛇身位置包含蛇头要去的新位置，说明碰到自己的身体了，就要游戏结束。
+<img src="./assets/20250303_125322.png" alt="20250303_125322.png"></p>
+<h2 id="附加功能">附加功能</h2>
+<p>至此所有基本功能都实现了。
+有兴趣的可以自己添加以下功能：</p>
+<ul>
+<li>游戏计时，</li>
+<li>吃到鸡蛋加分并显示，</li>
+<li>每隔一定时间没有吃到鸡蛋，鸡蛋就变换位置，</li>
+<li>鸡蛋新出现的位置不能出现在蛇的身体上，</li>
+<li>添加障碍物，</li>
+<li>修改为图像精灵版本（蛇头、蛇身、蛇尾用不同的图片代替）</li>
+</ul>
+<p>这个是写的图像精灵版本的：
+<img src="./assets/20250303_125345.png" alt="20250303_125345.png"></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

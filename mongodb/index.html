@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>使用MongoDB作为后端数据库 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>使用MongoDB作为后端数据库</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+<p>MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</p>
+<p>&ndash;选自菜鸟教程</p>
+<h2 id="宝塔安装mongodb">宝塔安装mongodb</h2>
+<ol>
+<li>
+<p>点击软件商店，搜索mongodb进行安装</p>
+</li>
+<li>
+<p>找到安装好的mongodb进行设置，将配置文件bindIp改为0.0.0.0</p>
+</li>
+<li>
+<p>安全 防火墙打开端口27017</p>
+</li>
+<li>
+<p>云服务器安全组入方向开放端口27017</p>
+</li>
+<li>
+<p>浏览器输入http://公网ip:27017
+出现“It looks like you are trying to access MongoDB over HTTP on the native driver port.”说明配置成功</p>
+</li>
+<li>
+<p>终端连接服务器</p>
+<pre tabindex="0"><code>cd /www/server/mongodb
+mongo
+use admin
+db.createUser({user:&#39;root&#39;,pwd:&#39;root&#39;,roles:[&#39;root&#39;]}) //这里可以使用自己的用户名和密码。
+db.auth(&#39;root&#39;,&#39;root&#39;) //返回1成功
+</code></pre></li>
+<li>
+<p>电脑可以安装mongodbCompass，可以在本地查看、操作mongodb的数据</p>
+</li>
+</ol>
+<h2 id="宝塔安装php7并开启网站">宝塔安装php7并开启网站</h2>
+<ol>
+<li>具体安装步骤略过</li>
+<li>服务器要支持php，本例中需要是php7以上。</li>
+<li>将<a href="/other/mongodb7.php">这个php文件</a>下载后上传到服务器，并配置好php中的连接字符串。</li>
+<li>在浏览器中输入http://你的网址/mongodb7.php,如果显示{&ldquo;error&rdquo;:&quot;&lsquo;collection&rsquo; is missing&quot;}说明配置成功。</li>
+</ol>
+<h2 id="使用web组件操作数据">使用Web组件操作数据</h2>
+<p><img src="./assets/20250303_122428.png" alt="20250303_122428.png">
+<img src="./assets/20250303_122440.png" alt="20250303_122440.png">
+<img src="./assets/20250303_122453.png" alt="20250303_122453.png">
+<img src="./assets/20250303_122504.png" alt="20250303_122504.png"></p>
+<h2 id="请求方式">请求方式：</h2>
+<p>GET或者POST，推荐POST</p>
+<h2 id="参数列表">参数列表：</h2>
+<ol>
+<li>
+<p>插入数据</p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>必填</th>
+          <th>类型</th>
+          <th>用途</th>
+          <th>举例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>action</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>请求类型</td>
+          <td>必须是insert</td>
+      </tr>
+      <tr>
+          <td>collection</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>表名</td>
+          <td>collection</td>
+      </tr>
+      <tr>
+          <td>document</td>
+          <td>yes</td>
+          <td>jsonArray</td>
+          <td>数据</td>
+          <td>[{&ldquo;id&rdquo;:1,&ldquo;x&rdquo;:25,&ldquo;y&rdquo;:34},{&ldquo;id&rdquo;:2,&ldquo;x&rdquo;:52,&ldquo;y&rdquo;:37}]</td>
+      </tr>
+  </tbody>
+</table>
+</li>
+<li>
+<p>查询数据</p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>必填</th>
+          <th>类型</th>
+          <th>用途</th>
+          <th>举例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>action</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>请求类型</td>
+          <td>必须是query</td>
+      </tr>
+      <tr>
+          <td>collection</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>表名</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>filter</td>
+          <td>no</td>
+          <td>jsonObject</td>
+          <td>符合的条件</td>
+          <td>{&ldquo;x&rdquo;:{&quot;$gt&quot;:5}}，详细见下方说明</td>
+      </tr>
+      <tr>
+          <td>sort</td>
+          <td>no</td>
+          <td>String</td>
+          <td>排序字段</td>
+          <td>-x (负号表示逆序，正序不用加符号)</td>
+      </tr>
+      <tr>
+          <td>key</td>
+          <td>no</td>
+          <td>String</td>
+          <td>返回字段</td>
+          <td>-id 或者x,y 正号负号不能同时使用</td>
+      </tr>
+      <tr>
+          <td>limit</td>
+          <td>no</td>
+          <td>number</td>
+          <td>限制数据个数</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>skip</td>
+          <td>no</td>
+          <td>number</td>
+          <td>跳过数据个数</td>
+          <td>10</td>
+      </tr>
+  </tbody>
+</table>
+</li>
+<li>
+<p>更新数据</p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>必填</th>
+          <th>类型</th>
+          <th>用途</th>
+          <th>举例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>action</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>请求类型</td>
+          <td>必须是update</td>
+      </tr>
+      <tr>
+          <td>collection</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>表名</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>filter</td>
+          <td>yes</td>
+          <td>jsonObject</td>
+          <td>符合的条件</td>
+          <td>{&ldquo;x&rdquo;:{&quot;$gt&quot;:5}} 详细见下方说明</td>
+      </tr>
+      <tr>
+          <td>newobj</td>
+          <td>yes</td>
+          <td>jsonObject</td>
+          <td>新的数据</td>
+          <td>{&quot;$set&quot;:{&ldquo;x&rdquo;:2}} 详细见下方说明</td>
+      </tr>
+      <tr>
+          <td>upsert</td>
+          <td>no</td>
+          <td>boolean</td>
+          <td>是否自动添加数据</td>
+          <td>若为真，且没有符合条件的记录时，会自动添加</td>
+      </tr>
+  </tbody>
+</table>
+</li>
+<li>
+<p>删除数据</p>
+<table>
+  <thead>
+      <tr>
+          <th>参数名</th>
+          <th>必填</th>
+          <th>类型</th>
+          <th>用途</th>
+          <th>举例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>action</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>请求类型</td>
+          <td>必须是delete</td>
+      </tr>
+      <tr>
+          <td>collection</td>
+          <td>yes</td>
+          <td>String</td>
+          <td>表名</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>filter</td>
+          <td>yes</td>
+          <td>jsonObject</td>
+          <td>符合的条件</td>
+          <td>{&ldquo;x&rdquo;:{&quot;$gt&quot;:5}} 详细见下方说明</td>
+      </tr>
+  </tbody>
+</table>
+</li>
+</ol>
+<h2 id="常用查询条件filter">常用查询条件filter</h2>
+<table>
+  <thead>
+      <tr>
+          <th>示例</th>
+          <th>表示意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>{&ldquo;x&rdquo;:2}</td>
+          <td>等于</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;x&rdquo;:{&quot;$lt&quot;:10}}</td>
+          <td>小于</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;x&rdquo;:{&quot;$lte&quot;:10}}</td>
+          <td>小于等于</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;x&rdquo;:{&quot;$gt&quot;:10}}</td>
+          <td>大于</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;x&rdquo;:{&quot;$gte&quot;:10}}</td>
+          <td>大于等于</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;x&rdquo;:{&quot;$ne&quot;:10}}</td>
+          <td>不等于</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;x&rdquo;:{&quot;$gt&quot;:5, &ldquo;$lt&rdquo;:10}}</td>
+          <td>并且</td>
+      </tr>
+      <tr>
+          <td>{&quot;$or&quot;:[{&ldquo;id&rdquo;:{&quot;$lt&quot;:5}},{&ldquo;id&rdquo;:{&quot;$gt&quot;:8}}]}</td>
+          <td>或者</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;id&rdquo;:{&quot;$in&quot;:[1,3,5]}}</td>
+          <td>在数组中</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;id&rdquo;:{&quot;$nin&quot;:[1,3,5]}}</td>
+          <td>不在数组中</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;name&rdquo;:{&quot;$regex&quot;:&ldquo;wang&rdquo;}}</td>
+          <td>文本包含</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;name&rdquo;:{&quot;$regex&quot;:&quot;^wang&quot;}}</td>
+          <td>文本以xxx开始</td>
+      </tr>
+      <tr>
+          <td>{&ldquo;name&rdquo;:{&quot;$exists&quot;:true}}</td>
+          <td>是否有某个字段</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="常用更新数据newobj">常用更新数据newobj</h2>
+<table>
+  <thead>
+      <tr>
+          <th>示例</th>
+          <th>意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>{&quot;$set&quot;:{&ldquo;x&rdquo;:2}}</td>
+          <td>将x的值设为2,若不存在就创建</td>
+      </tr>
+      <tr>
+          <td>{&quot;$unset&quot;:{&ldquo;x&rdquo;:1}}</td>
+          <td>删除某个字段</td>
+      </tr>
+      <tr>
+          <td>{&quot;$inc&quot;:{&ldquo;x&rdquo;:2}}</td>
+          <td>将x增加2， 只能是数字类型</td>
+      </tr>
+      <tr>
+          <td>{&quot;$push&quot;:{&ldquo;x&rdquo;:5}}</td>
+          <td>向x中追加一个数。x必须是数组类型</td>
+      </tr>
+      <tr>
+          <td>{&quot;$pull&quot;:{&ldquo;x&rdquo;:5}}</td>
+          <td>将x中等于5的值删除。</td>
+      </tr>
+      <tr>
+          <td>{&quot;$rename&quot;:{&ldquo;x&rdquo;:&ldquo;y&rdquo;}}</td>
+          <td>将字段x名称修改为y</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="返回数据">返回数据</h2>
+<p>返回数据为json格式。</p>
+<ol>
+<li>
+<p>若出错，会有error字段</p>
+</li>
+<li>
+<p>若没有出错，总有count字段和action字段</p>
+</li>
+<li>
+<p>若是query操作，还有个records字段。</p>
+</li>
+</ol>
+<h2 id="附上php的内容">附上php的内容</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Writen by: Kevinkun
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Date: 26/10/2022
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Contact: wangsk789@qq.com
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//error_reporting(0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>$connectString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mongodb://root:root@localhost:27017&#34;</span>;<span style="color:#75715e">//change this to your connectString
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>{
+</span></span><span style="display:flex;"><span>    $manager <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\Manager</span>($connectString);  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $result <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// collection
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;collection&#34;</span>])){
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;collection&#39; is missing&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    $col <span style="color:#f92672">=</span> $_REQUEST[<span style="color:#e6db74">&#34;collection&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">strpos</span>($col,<span style="color:#e6db74">&#34;.&#34;</span>)<span style="color:#f92672">==</span><span style="color:#66d9ef">false</span>){
+</span></span><span style="display:flex;"><span>        $col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;db.&#34;</span> <span style="color:#f92672">.</span> $col;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//action
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $action <span style="color:#f92672">=</span><span style="color:#a6e22e">strtolower</span>(<span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;action&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;action&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($action <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;query&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//filter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $filter <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;filter&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;filter&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;{}&#34;</span>;
+</span></span><span style="display:flex;"><span>        $filter <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($filter);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>$filter){
+</span></span><span style="display:flex;"><span>            $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;filter&#39; is not a well-formated json&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        $filter <span style="color:#f92672">=</span> (<span style="color:#66d9ef">array</span>)$filter;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">array_key_exists</span>(<span style="color:#e6db74">&#34;_id&#34;</span>, $filter)){
+</span></span><span style="display:flex;"><span>            $id <span style="color:#f92672">=</span> $filter[<span style="color:#e6db74">&#34;_id&#34;</span>];
+</span></span><span style="display:flex;"><span>            $filter[<span style="color:#e6db74">&#34;_id&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\MongoDB\BSON\ObjectId</span>($id);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//sort
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>();    
+</span></span><span style="display:flex;"><span>        $order <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;sort&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;sort&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;_id&#34;</span>;
+</span></span><span style="display:flex;"><span>        $order <span style="color:#f92672">=</span> <span style="color:#a6e22e">explode</span>(<span style="color:#e6db74">&#34;,&#34;</span>,$order);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span>($order <span style="color:#66d9ef">as</span> $k){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;-&#34;</span>){
+</span></span><span style="display:flex;"><span>                 $sort[<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">1</span>)] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;+&#34;</span>){
+</span></span><span style="display:flex;"><span>                 $sort[<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">1</span>)] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                 $sort[$k] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//keys
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $projection <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;_id&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        $keys <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;key&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;key&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;-_id&#34;</span>;
+</span></span><span style="display:flex;"><span>        $keys <span style="color:#f92672">=</span> <span style="color:#a6e22e">explode</span>(<span style="color:#e6db74">&#34;,&#34;</span>,$keys);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span>($keys <span style="color:#66d9ef">as</span> $k){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;-&#34;</span>){
+</span></span><span style="display:flex;"><span>             $projection[<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">1</span>)] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;+&#34;</span>){
+</span></span><span style="display:flex;"><span>                 $projection[<span style="color:#a6e22e">substr</span>($k,<span style="color:#ae81ff">1</span>)] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                 $projection[$k] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//limit and skip
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $limit <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;limit&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;limit&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;0&#34;</span>;
+</span></span><span style="display:flex;"><span>        $skip <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;skip&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;skip&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;0&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $options <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;projection&#39;</span> <span style="color:#f92672">=&gt;</span> $projection,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;sort&#39;</span> <span style="color:#f92672">=&gt;</span> $sort,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;limit&#39;</span> <span style="color:#f92672">=&gt;</span> $limit,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;skip&#39;</span> <span style="color:#f92672">=&gt;</span> $skip,
+</span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $query <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\Query</span>($filter, $options);
+</span></span><span style="display:flex;"><span>        $cursor <span style="color:#f92672">=</span> $manager<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">executeQuery</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$col</span><span style="color:#e6db74">&#34;</span>, $query);
+</span></span><span style="display:flex;"><span>        $records <span style="color:#f92672">=</span> $cursor<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">toArray</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;records&#34;</span>] <span style="color:#f92672">=</span>  $records;
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;count&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">count</span>($records);
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;action&#34;</span>]<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;query&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">json_encode</span>($result);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ($action <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;insert&#34;</span>) {
+</span></span><span style="display:flex;"><span>        $bulk <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\BulkWrite</span>;
+</span></span><span style="display:flex;"><span>        $body <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;document&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;document&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;[]&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">strpos</span>($body, <span style="color:#e6db74">&#34;[&#34;</span>) <span style="color:#f92672">!==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            $body <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[&#34;</span><span style="color:#f92672">.</span>$body<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;]&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        $body <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($body);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>$body){
+</span></span><span style="display:flex;"><span>            $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;document&#39; is not a well-formated jsonArray&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> ($body <span style="color:#66d9ef">as</span> $b){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">is_object</span>($b)){
+</span></span><span style="display:flex;"><span>                $bulk<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">insert</span>($b);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $postresult <span style="color:#f92672">=</span> $manager<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">executeBulkWrite</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$col</span><span style="color:#e6db74">&#34;</span>, $bulk);
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;count&#34;</span>]<span style="color:#f92672">=</span> $postresult<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getInsertedCount</span>();
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;action&#34;</span>]<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;insert&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">json_encode</span>($result);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ($action <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;delete&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//filter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $filter <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;filter&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;filter&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>        $filter <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($filter);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>$filter){
+</span></span><span style="display:flex;"><span>            $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;filter&#39; is not a well-formated json&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        $filter <span style="color:#f92672">=</span> (<span style="color:#66d9ef">array</span>)$filter;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">array_key_exists</span>(<span style="color:#e6db74">&#34;_id&#34;</span>, $filter)){
+</span></span><span style="display:flex;"><span>            $id <span style="color:#f92672">=</span> $filter[<span style="color:#e6db74">&#34;_id&#34;</span>];
+</span></span><span style="display:flex;"><span>            $filter[<span style="color:#e6db74">&#34;_id&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\MongoDB\BSON\ObjectId</span>($id);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $bulk <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\BulkWrite</span>;
+</span></span><span style="display:flex;"><span>        $bulk<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">delete</span>($filter, [<span style="color:#e6db74">&#39;limit&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>]); 
+</span></span><span style="display:flex;"><span>        $writeConcern <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\WriteConcern</span>(<span style="color:#a6e22e">MongoDB\Driver\WriteConcern</span><span style="color:#f92672">::</span><span style="color:#a6e22e">MAJORITY</span>, <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>        $delresult <span style="color:#f92672">=</span> $manager<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">executeBulkWrite</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$col</span><span style="color:#e6db74">&#34;</span>, $bulk, $writeConcern);
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;count&#34;</span>]<span style="color:#f92672">=</span> $delresult<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getDeletedCount</span>();
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;action&#34;</span>]<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;delete&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">json_encode</span>($result);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ($action <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;update&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//filter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $filter <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;filter&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;filter&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>        $filter <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($filter);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>$filter){
+</span></span><span style="display:flex;"><span>            $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;filter&#39; is not a well-formated json&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        $filter <span style="color:#f92672">=</span> (<span style="color:#66d9ef">array</span>)$filter;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">array_key_exists</span>(<span style="color:#e6db74">&#34;_id&#34;</span>, $filter)){
+</span></span><span style="display:flex;"><span>            $id <span style="color:#f92672">=</span> $filter[<span style="color:#e6db74">&#34;_id&#34;</span>];
+</span></span><span style="display:flex;"><span>            $filter[<span style="color:#e6db74">&#34;_id&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\MongoDB\BSON\ObjectId</span>($id);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//newobj
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $newobj <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;newobj&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;newobj&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;[]&#34;</span>;
+</span></span><span style="display:flex;"><span>        $newobj <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($newobj);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>$newobj){
+</span></span><span style="display:flex;"><span>                $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;newobj&#39; is not a well-formated json&#34;</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $upsert <span style="color:#f92672">=</span> <span style="color:#a6e22e">isset</span>($_REQUEST[<span style="color:#e6db74">&#34;upsert&#34;</span>])<span style="color:#f92672">?</span>$_REQUEST[<span style="color:#e6db74">&#34;upsert&#34;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>        $upsert <span style="color:#f92672">=</span> <span style="color:#a6e22e">strtolower</span>($upsert)<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">?</span><span style="color:#66d9ef">true</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $bulk <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\BulkWrite</span>;
+</span></span><span style="display:flex;"><span>        $bulk<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">update</span>($filter, $newobj, [<span style="color:#e6db74">&#39;multi&#39;</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;upsert&#39;</span><span style="color:#f92672">=&gt;</span>$upsert]);
+</span></span><span style="display:flex;"><span>        $writeConcern <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MongoDB\Driver\WriteConcern</span>(<span style="color:#a6e22e">MongoDB\Driver\WriteConcern</span><span style="color:#f92672">::</span><span style="color:#a6e22e">MAJORITY</span>, <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>        $updateresult <span style="color:#f92672">=</span> $manager<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">executeBulkWrite</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$col</span><span style="color:#e6db74">&#34;</span>, $bulk, $writeConcern);
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;count&#34;</span>]<span style="color:#f92672">=</span> $updateresult<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getModifiedCount</span>() <span style="color:#f92672">+</span> $updateresult<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getUpsertedCount</span>();
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;action&#34;</span>]<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;update&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">json_encode</span>($result);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;action&#39; is not recoginzed&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">MongoDB\Driver\Exception\Exception</span> $e) {
+</span></span><span style="display:flex;"><span>    $result[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">=</span> $e<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getMessage</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">json_encode</span>($result));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

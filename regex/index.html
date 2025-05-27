@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>RegEx正则表达式扩展 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>RegEx正则表达式扩展</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>正则表达式(regular expression)描述了一种字符串匹配的模式（pattern），可以用来检查一个串是否含有某种子串、将匹配的子串替换或者从某个串中取出符合某个条件的子串等。（摘自 菜鸟教程）</p>
+<h1 id="方法-all-methods">方法 All Methods</h1>
+<p>![2023-05-10T05:01:22.png][1]<img src="./assets/20250303_124016.png" alt="20250303_124016.png"></p>
+<p>GetMatches方法可以返回符合条件的字符串列表</p>
+<p>SplitWith方法可以使用规则表达式对字符串进行分割，并返回列表</p>
+<p><img src="./assets/20250303_124025.png" alt="20250303_124025.png"></p>
+<p>GetMatchesWithPosition方法</p>
+<p>GetMatchesWithGroup方法</p>
+<p>GetMatchesWithGroupAndPosition方法</p>
+<p>示例文件解释了他们的作用.
+<img src="./assets/20250303_124035.png" alt="20250303_124035.png"></p>
+<p>ReplaceFirst方法和ReplaceAll方法可以返回替换第一个或所有符合条件的子字符串后的新字符串
+<img src="./assets/20250303_124042.png" alt="20250303_124042.png"></p>
+<p>IndexOf方法可以返回符合条件的第一个字串的位置
+<img src="./assets/20250303_124050.png" alt="20250303_124050.png"></p>
+<p>IsMatch方法可以判断字符串是否符合规则表达式，返回真或假</p>
+<p>IsNumber方法可以判断字符串是否为数字格式</p>
+<p>IsEmail方法可以判断字符串是否为邮箱格式</p>
+<p>IsStrongPassword方法可以判断字符串是否为强密码（至少8位，只好有1位大写和1位小写和1为数字）</p>
+<p>IsEmail和IsStrongPassword可以用在用户注册、登录等情况</p>
+<h2 id="下载地址-download-links">下载地址 Download Links:</h2>
+<p><a href="./assets/20250303_124122.aix">cn.kevinkun.KevinkunRegEx-v3.aix</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

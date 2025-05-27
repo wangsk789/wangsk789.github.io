@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AirTable extension  &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>AirTable extension </h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>Why another extension about Airtable? Because this one is different. This one can select/ insert/ update/ delete according to your filter/condition.</p>
+<h1 id="release-history">Release history</h1>
+<h2 id="v2-update-history-20201224">V2 Update history 2020/12/24</h2>
+<ol>
+<li>fix bug of &ldquo;can not update value with space&rdquo;, now in the formula, use &quot; and &quot; to quote the value with space.</li>
+<li>add perperty of FetchIdAndTime. if set to true, in the SelectFinished event you will get &lsquo;id&rsquo; and &lsquo;createdTime&rsquo; for each record.</li>
+</ol>
+<p><img src="./assets/20250303_111533.png" alt="20250303_111533.png"></p>
+<ol start="3">
+<li>add method &lsquo;UpdateById&rsquo; and &lsquo;DeleteById&rsquo; for update or delete one record, which is faster than by filter.</li>
+</ol>
+<p><img src="./assets/20250303_111551.png" alt="20250303_111551.png"></p>
+<h1 id="all-the-blocks">all the blocks</h1>
+<h2 id="initialize-the-extension">Initialize the extension</h2>
+<p><img src="./assets/20250303_111611.png" alt="20250303_111611.png"></p>
+<p>Same like other Airtable component, get your API Key, BaseId, TableName from the airtable website.</p>
+<p><strong>update on 13/02/2024
+Since 01/01/2024, Airtable deprecated ApiKey, and suggest to use token. You can set the ApiKey to the token, this extension still working.</strong></p>
+<h2 id="select-records">Select records</h2>
+<p><img src="./assets/20250303_111625.png" alt="20250303_111625.png"></p>
+<p><strong>fields:</strong> String. or called &ldquo;column names&rdquo;, Format like &ldquo;<em>name,age,phone</em>&rdquo;. Leave it blank for all fields</p>
+<p><strong>filter</strong>: String. condition the records have to fit. Format like &ldquo;<em>age&gt;30</em>&rdquo;  or &ldquo;<em>OR(age&gt;20, age&lt;50)</em>&rdquo;. For more info, please refer to <a href="https://support.airtable.com/hc/en-us/articles/203255215-Formula-Field-Reference">here</a></p>
+<p><strong>pageSize</strong>: Number. how much records returned one time..  Max value 100.</p>
+<p><strong>offset</strong>: String.  If the records fit the filter more than pageSize, you will get an  offset at SelectFinished event, use it here for more records.</p>
+<p><strong>sort</strong>: String. the records will be ordered on this field. Format like &ldquo;age desc&rdquo; or &ldquo;age asc&rdquo;</p>
+<p><strong>count</strong>: Number. how much records selected.</p>
+<p><strong>records</strong>: String. Json format. it&rsquo;s a json array of dictionaries.</p>
+<h2 id="insert-records">Insert records</h2>
+<p><img src="./assets/20250303_111639.png" alt="20250303_111639.png"></p>
+<p><strong>records</strong>:  String. Json format. it&rsquo;s a json array of dictionaries. Format like <em>[{&ldquo;name&rdquo;:&ldquo;Jasmine Lake&rdquo;,&ldquo;age&rdquo;:43,&ldquo;phone&rdquo;:&ldquo;513937&rdquo;}, {&ldquo;name&rdquo;:&ldquo;Ava Sharp&rdquo;,&ldquo;age&rdquo;:21,&ldquo;phone&rdquo;:&ldquo;293309&rdquo;}]</em></p>
+<p><strong>IMPORTANT</strong>: If you want to feed this param with List component, remember to check &ldquo;Show List As Json&rdquo; at Screen1 Properties panel.</p>
+<p><strong>count</strong>: Number. how much records inserted. if count=0, means no records inserted.</p>
+<h2 id="update-records">Update records</h2>
+<p><img src="./assets/20250303_111652.png" alt="20250303_111652.png"></p>
+<p><strong>filter</strong>: pls refer to Select part
+<strong>NOTE</strong>: ONLY up to 10 records will be updated. if more than 10 records fit the filter, there will be Error Cccured.</p>
+<p><strong>formula</strong>:String. How to change the data. Format like: <em>&ldquo;age += 1</em>&rdquo;. there are spaces before and after the “+=”。 Now the accepted operators are +=，-=, *=, /=, = for number field, and <em>to</em> for string field.</p>
+<p><strong>count</strong>: Number. how much records updated. if count=0, means no records updated.</p>
+<h2 id="delete-records">Delete records</h2>
+<p><img src="./assets/20250303_111703.png" alt="20250303_111703.png"></p>
+<p><strong>filter</strong>: pls refer to Select part
+<strong>NOTE</strong>: ONLY up to 10 records will be deleted. if more than 10 records fit the filter, there will be Error Cccured.</p>
+<p><strong>count</strong>: Number. how much records deleted. if count=0, means no records deleted</p>
+<h2 id="error-occurred">Error Occurred</h2>
+<p><img src="./assets/20250303_111714.png" alt="20250303_111714.png"></p>
+<p><strong>message</strong>: String. Error reason.</p>
+<h1 id="download-link-here">Download link here</h1>
+<p><a href="./assets/20250303_133229.aix">cn.kevinkun.KevinkunAirtable.aix</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>将汉字按照拼音排序 &middot; 浮云小站</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>浮云小站</h1></a>
+      <p class="lead">
+       App Inventor 2相关的扩展、教程、代码等. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        
+      </ul>
+    </nav>
+	
+	<div >
+	<form action="/search">
+            <input id="search-query" name="s" placeholder="输入关键词..." style="-webkit-appearance: none; display: block;        width: 80%;        padding: 8px;    margin-bottom: 20px;        font-size: 1rem;        line-height: 1.5;        border: 1px solid #ced4da;        border-radius: .25rem; "/>
+	</form>
+    </div>
+	
+		
+    <p>Copyright (c) 2025, Kevinkun</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>将汉字按照拼音排序</h1>
+  <time datetime=2022-11-20T09:03:20-0800 class="post-date">2022-11-20</time>
+  <p>群里有人提出如何将城市名称按照拼音排序，这里是一个解决方案：查字典法。就是我们提前准备（几乎）所有汉字和拼音的字典，使用AI2提供的排序块排序列表。</p>
+<h1 id="准备工作">准备工作</h1>
+<p>这里我准备了一个字典文件（<a href="./assets/20250303_123755.txt">pinyin.txt</a>），请右键另存到本地，文件来源 <a href="https://gitee.com/liqiangit/jpinyin">https://gitee.com/liqiangit/jpinyin</a> ， 我把内容格式改为了csv格式，并按照笔画顺序排序了。
+字典包含了20903个汉字。</p>
+<p>文件格式为</p>
+<p><img src="./assets/20250303_123358.png" alt="20250303_123358.png"></p>
+<h1 id="加载字典">加载字典</h1>
+<p>将上面的字典文件导入项目的素材库中。
+我们使用文件管理器读取文件。
+读取后将格式转为字典格式。</p>
+<p><img src="./assets/20250303_123406.png" alt="20250303_123406.png"></p>
+<p>这样，我们就可以查字典，找到某个汉字的拼音了：</p>
+<p><img src="./assets/20250303_123413.png" alt="20250303_123413.png"></p>
+<p>注意这个字典只能查询单个汉字的拼音，如果需要转换多个汉字，需要用循环转换后拼接字串而成。
+有些汉字可能有多个读音，这里多个拼音用|进行了分隔。</p>
+<h1 id="按映射值排序列表块">按映射值排序列表块</h1>
+<p>在新版的AI2中，引入了多个对列表进行操作的块，其中一个是使用列表项映射的值进行排序：</p>
+<p><img src="./assets/20250303_123421.png" alt="20250303_123421.png"></p>
+<p>他的作用是，将列表项转换为一个相应的值，按照这个新的值进行排序，但是返回的是原列表的内容。
+比如：</p>
+<p><img src="./assets/20250303_123427.png" alt="20250303_123427.png"></p>
+<p>这里，他会把所有数字都除以2求余数，按照余数的大小排序，然后返回每个余数对应的原来的数的列表。</p>
+<h1 id="按拼音排序">按拼音排序</h1>
+<p>这里我们将列表项转为拼音，然后让他按照拼音排序，然后返回的还是汉字。</p>
+<p>假设我们有一个城市列表：</p>
+<p><img src="./assets/20250303_123435.png" alt="20250303_123435.png"></p>
+<p>我们要对这个列表按照拼音顺序排序。</p>
+<p><img src="./assets/20250303_123636.png" alt="20250303_123636.png"></p>
+<p>这样，就得到了按照城市名第一个字的拼音排序的列表。</p>
+<h1 id="按笔画排序">按笔画排序</h1>
+<p>上面我已经说过，这个字典文件，我已经按照笔画顺序排序了，所以只要找到汉字所在位置的索引，比较索引就可以按笔画顺序排序了。</p>
+<p><img src="./assets/20250303_123442.png" alt="2024-05-08T07:13:54.png"></p>
+<h1 id="一点小bug">一点小bug</h1>
+<p>实际测试会发现有时候“啊”这个读音的会排在最后面，这是因为这个字典文件的拼音字母使用的是āáǎàōóǒòēéěèīíǐìūúǔù 这种元音，这些跟abcde这种进行排序是会排在后面的。
+解决办法就是替换字典中的这种带读音的元音符号。
+请根据情况使用以下一种替换。</p>
+<p><a href="./assets/20250303_123719.txt">pinyin.without.tone.txt</a></p>
+<p><a href="./assets/20250303_123737.txt">pinyin.with.number.tone.txt</a></p>
+</div>
+
+	<div id="vcomments"></div>
+	<script src='../../Valine.min.js'></script>
+	<script src='../../myjs.js'></script>
+    </main>
+
+    
+      
+    
+  </body>
+</html>
